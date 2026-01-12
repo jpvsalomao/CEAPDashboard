@@ -1,0 +1,1046 @@
+@import "tailwindcss";
+
+/* ============================================
+   CEAP Dashboard Design System
+   Aesthetic: Dark Editorial / Data Journalism
+   Supports: Light / Dark / System themes
+   ============================================ */
+
+@theme {
+  /* Background Colors - Deep noir with warmth (Dark Mode Default) */
+  --color-bg-primary: #0A0A0C;
+  --color-bg-secondary: #111114;
+  --color-bg-tertiary: #1a1a1f;
+  --color-bg-card: rgba(17, 17, 20, 0.85);
+  --color-bg-card-solid: #141417;
+
+  /* Accent Colors - Refined jewel tones */
+  --color-accent-red: #E04545;
+  --color-accent-amber: #D4A03A;
+  --color-accent-teal: #3D9996;
+  --color-accent-blue: #4682B4;
+
+  /* Text Colors - Warm whites */
+  --color-text-primary: #F5F5F3;
+  --color-text-secondary: #9A9CA8;
+  --color-text-muted: #5C5E6A;
+
+  /* Status Colors */
+  --color-status-critical: #E04545;
+  --color-status-high: #D4A03A;
+  --color-status-medium: #3D9996;
+  --color-status-low: #34A853;
+
+  /* Border Colors - Subtle definition */
+  --color-border: #232328;
+  --color-border-hover: #35353d;
+
+  /* Chart Colors - For D3 visualizations */
+  --color-chart-grid: #2a2b33;
+  --color-chart-axis: #A0A3B1;
+
+  /* Fonts - Distinctive editorial choices */
+  --font-display: "Bebas Neue", "Oswald", sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+/* ============================================
+   LIGHT THEME - Editorial Light (Paper Quality)
+   ============================================ */
+[data-theme="light"] {
+  /* Background Colors - Warm paper tones */
+  --color-bg-primary: #FAFAF8;
+  --color-bg-secondary: #F2F1EF;
+  --color-bg-tertiary: #E8E7E4;
+  --color-bg-card: rgba(255, 255, 253, 0.92);
+  --color-bg-card-solid: #FFFFFF;
+
+  /* Accent Colors - Slightly deeper for contrast on light */
+  --color-accent-red: #C93B3B;
+  --color-accent-amber: #B8872E;
+  --color-accent-teal: #2D7A77;
+  --color-accent-blue: #3A6D96;
+
+  /* Text Colors - Rich blacks with warm undertones */
+  --color-text-primary: #1A1918;
+  --color-text-secondary: #5C5A56;
+  --color-text-muted: #8A8884;
+
+  /* Status Colors - Same semantic, adjusted contrast */
+  --color-status-critical: #C93B3B;
+  --color-status-high: #B8872E;
+  --color-status-medium: #2D7A77;
+  --color-status-low: #2D8A47;
+
+  /* Border Colors - Subtle warm definition */
+  --color-border: #E0DFDC;
+  --color-border-hover: #CFCECA;
+
+  /* Chart Colors - Light mode variants */
+  --color-chart-grid: #E0DFDC;
+  --color-chart-axis: #5C5A56;
+}
+
+/* Base Styles */
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+  letter-spacing: -0.01em;
+  /* Prevent zoom/centering issues on mobile */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  /* Subtle noise texture for depth - Dark mode */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(61, 153, 150, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(70, 130, 180, 0.05), transparent);
+  background-attachment: fixed;
+  /* Smooth theme transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode body background - Subtle warm gradient */
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(45, 122, 119, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(58, 109, 150, 0.04), transparent);
+}
+
+/* Tooltip styles - ensure tooltips don't affect document flow */
+.spending-timeline-tooltip,
+.temporal-deep-dive-tooltip {
+  position: fixed !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+/* Safe area for iPhone notch/home indicator */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent-teal);
+  color: var(--color-text-primary);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-accent-teal);
+  outline-offset: 2px;
+}
+
+/* Utility classes for D3 charts */
+.chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Tooltip base styles */
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background-color: var(--color-bg-card-solid);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  max-width: 280px;
+  /* Prevent tooltip from going off-screen */
+  transform: translateY(-50%);
+}
+
+.tooltip-title {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.tooltip-value {
+  color: var(--color-accent-teal);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tooltip-label {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+/* Glassmorphism card effect - Enhanced */
+.glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(17, 17, 20, 0.9) 0%,
+    rgba(17, 17, 20, 0.75) 100%
+  );
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 24px -4px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(61, 153, 150, 0.15);
+  box-shadow:
+    0 8px 32px -8px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(61, 153, 150, 0.08) inset;
+}
+
+/* Light mode glass-card - Clean paper effect */
+[data-theme="light"] .glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.85) 100%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 24px -4px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .glass-card:hover {
+  border-color: rgba(45, 122, 119, 0.25);
+  box-shadow:
+    0 8px 32px -8px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Reduced motion support - respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-fade-in,
+  .animate-slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Disable D3 chart animations */
+  .chart-container path,
+  .chart-container circle,
+  .chart-container rect,
+  .chart-container line {
+    transition: none !important;
+  }
+
+  /* Loading spinner becomes static */
+  .animate-spin {
+    animation: none !important;
+  }
+
+  /* Page transitions become instant */
+  .page-transition {
+    transition: none !important;
+  }
+}
+
+/* Number formatting for Brazilian locale */
+.number-br {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Print styles */
+@media print {
+  /* Reset to light theme for printing */
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f5f5f5;
+    --color-bg-card: #ffffff;
+    --color-bg-card-solid: #ffffff;
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #4a4a4a;
+    --color-text-muted: #6b6b6b;
+    --color-border: #e0e0e0;
+    --color-border-hover: #d0d0d0;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    font-size: 12pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide navigation and non-essential elements */
+  nav,
+  .sidebar,
+  [data-sidebar],
+  .mobile-nav,
+  .mobile-header,
+  .bottom-nav,
+  .shortcuts-modal,
+  .loading-bar,
+  button:not(.print-visible),
+  .export-button,
+  .filter-bar,
+  [role="dialog"],
+  .compare-button,
+  .search-modal {
+    display: none !important;
+  }
+
+  /* Full width for main content */
+  main,
+  .main-content,
+  [data-main-content] {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Card styling for print */
+  .glass-card {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 16pt;
+  }
+
+  /* Ensure charts print properly */
+  .chart-container,
+  svg {
+    page-break-inside: avoid;
+    max-width: 100%;
+  }
+
+  /* D3 chart text for print */
+  .chart-container text,
+  svg text {
+    fill: #1a1a1a !important;
+  }
+
+  /* D3 chart axis lines for print */
+  .chart-container line,
+  .chart-container path.domain,
+  svg line,
+  svg path.domain {
+    stroke: #6b6b6b !important;
+  }
+
+  /* Grid lines lighter */
+  .chart-container .grid line,
+  svg .grid line {
+    stroke: #e0e0e0 !important;
+  }
+
+  /* Tables */
+  table {
+    page-break-inside: auto;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  th, td {
+    border: 1px solid #e0e0e0 !important;
+    padding: 8pt !important;
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+  }
+
+  th {
+    background: #f5f5f5 !important;
+    font-weight: 600;
+  }
+
+  /* Risk level badges - ensure colors print */
+  .text-accent-red {
+    color: #dc4a4a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .text-accent-amber {
+    color: #e5a84b !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .text-accent-teal {
+    color: #4aa3a0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Links */
+  a {
+    color: #1a1a1a !important;
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: none; /* Don't print URLs */
+  }
+
+  /* Page headers */
+  h1, h2, h3 {
+    page-break-after: avoid;
+    color: #1a1a1a !important;
+  }
+
+  /* Stat cards */
+  .stat-card,
+  [data-stat-card] {
+    border: 1px solid #e0e0e0;
+    padding: 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* Print header (add via JS when printing) */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20pt;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 10pt;
+  }
+
+  .print-header h1 {
+    font-size: 18pt;
+    margin: 0 0 5pt 0;
+  }
+
+  .print-header .print-date {
+    font-size: 10pt;
+    color: #6b6b6b;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  .no-page-break {
+    page-break-inside: avoid;
+  }
+
+  /* Footer */
+  @page {
+    margin: 1cm;
+    @bottom-center {
+      content: "CEAP Dashboard - Dados de Gastos Parlamentares";
+      font-size: 8pt;
+      color: #6b6b6b;
+    }
+    @bottom-right {
+      content: counter(page) " / " counter(pages);
+      font-size: 8pt;
+      color: #6b6b6b;
+    }
+  }
+
+  /* First page */
+  @page :first {
+    margin-top: 2cm;
+  }
+}
+
+/* Print button visibility */
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE POLISH
+   ============================================ */
+
+/* Touch-friendly minimum tap target sizes (44x44px per WCAG) */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  [role="button"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Larger touch targets for sliders */
+  input[type="range"]::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Mobile-first tooltip positioning */
+@media (max-width: 640px) {
+  .tooltip {
+    max-width: calc(100vw - 32px);
+    left: 16px !important;
+    right: 16px !important;
+    transform: none !important;
+  }
+}
+
+/* Horizontal scroll containers for tables */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.table-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+/* Mobile card spacing */
+@media (max-width: 640px) {
+  .glass-card {
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  /* Stack toggle buttons vertically on very small screens */
+  .toggle-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .toggle-group button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Prevent horizontal overflow on mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* SVG charts should fit container */
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  button:active,
+  a:active,
+  [role="button"]:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
+}
+
+/* Mobile-friendly text sizes */
+@media (max-width: 375px) {
+  html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Smaller stat cards on tiny screens */
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Ensure charts don't overflow */
+.chart-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  min-width: 0; /* Allow flexbox shrinking */
+}
+
+/* Responsive chart text sizes on mobile */
+@media (max-width: 480px) {
+  .chart-container text {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 360px) {
+  .chart-container text {
+    font-size: 8px;
+  }
+}
+
+/* Sticky headers for mobile tables */
+@media (max-width: 768px) {
+  .table-sticky thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--color-bg-secondary);
+  }
+}
+
+/* Mobile-optimized grid gaps */
+@media (max-width: 640px) {
+  .grid {
+    gap: 12px;
+  }
+}
+
+/* Bottom sheet style for mobile modals */
+@media (max-width: 640px) {
+  .modal-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    border-radius: 16px 16px 0 0;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+}
+
+/* Safe area padding for notched devices */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-p {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-m {
+    margin-left: env(safe-area-inset-left);
+    margin-right: env(safe-area-inset-right);
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Landscape mode fixes */
+@media (max-height: 500px) and (orientation: landscape) {
+  .mobile-nav {
+    display: none;
+  }
+
+  main {
+    padding-bottom: 16px;
+  }
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Smooth momentum scrolling */
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #4a4a4a;
+    --color-text-muted: #808080;
+  }
+
+  .glass-card {
+    border-width: 2px;
+  }
+}
+
+/* Dark mode forced colors (Windows high contrast) */
+@media (forced-colors: active) {
+  .glass-card {
+    border: 1px solid CanvasText;
+  }
+
+  button,
+  a {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Make sr-only visible on focus (for skip links) */
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Skip link styling */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1rem 2rem;
+  background: var(--color-accent-teal);
+  color: var(--color-bg-primary);
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* Focus visible improvements */
+:focus-visible {
+  outline: 2px solid var(--color-accent-teal);
+  outline-offset: 2px;
+}
+
+/* Enhanced focus for interactive elements */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent-teal);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(74, 163, 160, 0.25);
+}
+
+/* Remove default focus outline when focus-visible not triggered */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure links have visible distinction */
+a:not([class]) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Ensure sufficient contrast for disabled states */
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Live region for announcements */
+[aria-live] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* ============================================
+   LOCKED/SUBSCRIBER CONTENT STYLES
+   ============================================ */
+
+/* Blurred locked content */
+.locked-blur {
+  filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Reduce blur on mobile for less visual noise */
+@media (max-width: 640px) {
+  .locked-blur {
+    filter: blur(4px);
+  }
+}
+
+/* Container for locked content with gradient fade */
+.locked-container {
+  position: relative;
+}
+
+/* Gradient overlay that fades content into blur */
+.locked-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-bg-card-solid) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Light mode gradient */
+[data-theme="light"] .locked-gradient-overlay {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+}
+
+/* Subscriber badge - amber-teal gradient */
+.subscriber-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, var(--color-accent-amber) 0%, var(--color-accent-teal) 100%);
+  color: var(--color-bg-primary);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Light mode badge adjustment */
+[data-theme="light"] .subscriber-badge {
+  color: #ffffff;
+}
+
+/* CTA overlay for locked content */
+.locked-cta-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 16px;
+}
+
+/* CTA card styling */
+.locked-cta-card {
+  background: var(--color-bg-card-solid);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .locked-cta-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* CTA button */
+.locked-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--color-accent-teal) 0%, var(--color-accent-blue) 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.locked-cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(61, 153, 150, 0.4);
+}
+
+.locked-cta-button:active {
+  transform: translateY(0);
+}
+
+/* Lock icon animation */
+.lock-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  color: var(--color-accent-teal);
+}
+
+/* Entity diagram node styling */
+.entity-node {
+  fill: var(--color-bg-secondary);
+  stroke: var(--color-border);
+  stroke-width: 2px;
+  transition: stroke 0.2s ease, fill 0.2s ease;
+}
+
+.entity-node:hover {
+  stroke: var(--color-accent-teal);
+  fill: var(--color-bg-tertiary);
+}
+
+.entity-node-label {
+  fill: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.entity-relationship-line {
+  stroke: var(--color-border-hover);
+  stroke-width: 2px;
+  fill: none;
+}
+
+.entity-relationship-label {
+  fill: var(--color-text-muted);
+  font-size: 10px;
+}

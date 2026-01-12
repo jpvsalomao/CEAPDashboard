@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-01-11T10:56:20.525132",
+  "generator": "prepare-data.py",
+  "source_data": {
+    "file": "despesas_combined_2023_2025.csv",
+    "sha256": "5f122a528694fa39b2c9d4ac9d21db24822bcc6cd15c47d77ace2e608a8fa07d",
+    "size_bytes": 197000101,
+    "last_modified": "2026-01-11T10:46:47.417621",
+    "api_source": "https://dadosabertos.camara.leg.br/api/v2",
+    "period": {
+      "start": "2023-01",
+      "end": "2025-12"
+    },
+    "record_count": 662938,
+    "total_value_brl": 725764332.9
+  },
+  "output_files": {
+    "aggregations.json": {
+      "record_count": 1,
+      "description": "Summary metrics and breakdowns by month/category/party/state"
+    },
+    "deputies.json": {
+      "record_count": 605,
+      "description": "Per-deputy data with risk scores and breakdowns"
+    },
+    "fraud-flags.json": {
+      "record_count": 610,
+      "description": "Red flag details for deputies with anomalies"
+    },
+    "mismatches.json": {
+      "record_count": 68,
+      "description": "CNPJ activity code mismatches"
+    }
+  },
+  "methodology": {
+    "benford_threshold": {
+      "chi2_critical_001": 20.09,
+      "chi2_critical_005": 15.51,
+      "degrees_of_freedom": 8,
+      "description": "Chi-squared test for first digit distribution"
+    },
+    "hhi_thresholds": {
+      "low": 1500,
+      "moderate": 2500,
+      "high": 3000,
+      "very_high": 5000,
+      "description": "Herfindahl-Hirschman Index for supplier concentration"
+    },
+    "risk_score": {
+      "base_weights": {
+        "hhi_critical": 0.9,
+        "hhi_high": 0.7,
+        "hhi_moderate": 0.4,
+        "hhi_low": 0.2
+      },
+      "additive_penalties": {
+        "benford_significant": 0.15,
+        "round_values_above_20pct": 0.1,
+        "top_supplier_above_50pct": 0.1,
+        "zscore_party_above_2std": 0.08,
+        "zscore_state_above_2std": 0.08
+      },
+      "max_score": 1.0,
+      "risk_level_thresholds": {
+        "critico": 0.75,
+        "alto": 0.55,
+        "medio": 0.35,
+        "baixo": 0.0
+      }
+    }
+  },
+  "reproducibility_notes": [
+    "All random operations use fixed seeds where applicable",
+    "Chi-squared p-values use critical value lookup (discrete: 0.01, 0.05, 0.10)",
+    "Source data hash can be used to verify identical input data",
+    "Benford analysis requires minimum 50 transactions per deputy for reliability"
+  ]
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>Onde Foi Parar a Cota - Analise de Gastos Parlamentares | Escola de Dados</title>
+    <meta name="title" content="Onde Foi Parar a Cota - Analise de Gastos Parlamentares | Escola de Dados" />
+    <meta name="description" content="Dashboard interativo para analise de mais de R$ 700 milhoes em gastos parlamentares (CEAP). Visualize padroes de gastos, detecte anomalias e explore dados de 847 deputados federais brasileiros." />
+    <meta name="author" content="Escola de Dados" />
+    <meta name="keywords" content="CEAP, gastos parlamentares, transparencia, dados abertos, deputados federais, Brasil, analise de dados, Escola de Dados" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ceap.escoladados.com/" />
+    <meta property="og:title" content="Onde Foi Parar a Cota - Analise de Gastos Parlamentares" />
+    <meta property="og:description" content="Dashboard interativo para analise de mais de R$ 700 milhoes em gastos parlamentares. Visualize padroes, detecte anomalias e explore dados de 847 deputados." />
+    <meta property="og:image" content="https://ceap.escoladados.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Escola de Dados" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ceap.escoladados.com/" />
+    <meta property="twitter:title" content="Onde Foi Parar a Cota - Analise de Gastos Parlamentares" />
+    <meta property="twitter:description" content="Dashboard interativo para analise de mais de R$ 700 milhoes em gastos parlamentares. Visualize padroes e detecte anomalias." />
+    <meta property="twitter:image" content="https://ceap.escoladados.com/og-image.png" />
+
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#0A0A0C" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ceap.escoladados.com/" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Onde Foi Parar a Cota",
+        "description": "Dashboard interativo para analise de gastos parlamentares brasileiros (CEAP)",
+        "url": "https://ceap.escoladados.com/",
+        "applicationCategory": "DataVisualization",
+        "operatingSystem": "Web",
+        "author": {
+          "@type": "Organization",
+          "name": "Escola de Dados",
+          "url": "https://escoladedados.org"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "isBasedOn": {
+          "@type": "Dataset",
+          "name": "Dados Abertos da Camara dos Deputados",
+          "url": "https://dadosabertos.camara.leg.br",
+          "description": "Dados de gastos parlamentares (CEAP) de 2023-2025"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

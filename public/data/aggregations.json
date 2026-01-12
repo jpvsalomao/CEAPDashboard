@@ -1,0 +1,633 @@
+{
+  "meta": {
+    "totalTransactions": 662938,
+    "totalSpending": 725764332.9,
+    "totalDeputies": 838,
+    "totalSuppliers": 39638,
+    "period": {
+      "start": "2023-01",
+      "end": "2025-12"
+    },
+    "lastUpdated": "2026-01-11T10:56:12.781176"
+  },
+  "byMonth": [
+    {
+      "month": "2023-01",
+      "value": 15840432.92,
+      "transactionCount": 13284
+    },
+    {
+      "month": "2023-02",
+      "value": 14217579.86,
+      "transactionCount": 13513
+    },
+    {
+      "month": "2023-03",
+      "value": 18263748.34,
+      "transactionCount": 20082
+    },
+    {
+      "month": "2023-04",
+      "value": 18144227.27,
+      "transactionCount": 17903
+    },
+    {
+      "month": "2023-05",
+      "value": 20946937.68,
+      "transactionCount": 21326
+    },
+    {
+      "month": "2023-06",
+      "value": 19944857.48,
+      "transactionCount": 19678
+    },
+    {
+      "month": "2023-07",
+      "value": 19788714.6,
+      "transactionCount": 18197
+    },
+    {
+      "month": "2023-08",
+      "value": 23008016.9,
+      "transactionCount": 23241
+    },
+    {
+      "month": "2023-09",
+      "value": 22189564.41,
+      "transactionCount": 21451
+    },
+    {
+      "month": "2023-10",
+      "value": 23383048.39,
+      "transactionCount": 22585
+    },
+    {
+      "month": "2023-11",
+      "value": 23392572.02,
+      "transactionCount": 21040
+    },
+    {
+      "month": "2023-12",
+      "value": 26894851.08,
+      "transactionCount": 18801
+    },
+    {
+      "month": "2024-01",
+      "value": 17476527.89,
+      "transactionCount": 13357
+    },
+    {
+      "month": "2024-02",
+      "value": 20087511.38,
+      "transactionCount": 18996
+    },
+    {
+      "month": "2024-03",
+      "value": 21681507.81,
+      "transactionCount": 21428
+    },
+    {
+      "month": "2024-04",
+      "value": 22114077.6,
+      "transactionCount": 21768
+    },
+    {
+      "month": "2024-05",
+      "value": 21497559.53,
+      "transactionCount": 21166
+    },
+    {
+      "month": "2024-06",
+      "value": 20288607.5,
+      "transactionCount": 21744
+    },
+    {
+      "month": "2024-07",
+      "value": 19456774.79,
+      "transactionCount": 21009
+    },
+    {
+      "month": "2024-08",
+      "value": 19061801.76,
+      "transactionCount": 20174
+    },
+    {
+      "month": "2024-09",
+      "value": 18162370.21,
+      "transactionCount": 17088
+    },
+    {
+      "month": "2024-10",
+      "value": 21055406.32,
+      "transactionCount": 18090
+    },
+    {
+      "month": "2024-11",
+      "value": 23698447.76,
+      "transactionCount": 18802
+    },
+    {
+      "month": "2024-12",
+      "value": 26833195.61,
+      "transactionCount": 17238
+    },
+    {
+      "month": "2025-01",
+      "value": 17796910.55,
+      "transactionCount": 13847
+    },
+    {
+      "month": "2025-02",
+      "value": 21633009.69,
+      "transactionCount": 20148
+    },
+    {
+      "month": "2025-03",
+      "value": 21439946.53,
+      "transactionCount": 20089
+    },
+    {
+      "month": "2025-04",
+      "value": 22344854.11,
+      "transactionCount": 21476
+    },
+    {
+      "month": "2025-05",
+      "value": 22067346.67,
+      "transactionCount": 21252
+    },
+    {
+      "month": "2025-06",
+      "value": 21815122.22,
+      "transactionCount": 19400
+    },
+    {
+      "month": "2025-07",
+      "value": 23032892.09,
+      "transactionCount": 20169
+    },
+    {
+      "month": "2025-08",
+      "value": 18026304.91,
+      "transactionCount": 15609
+    },
+    {
+      "month": "2025-09",
+      "value": 18296991.86,
+      "transactionCount": 15154
+    },
+    {
+      "month": "2025-10",
+      "value": 18158887.05,
+      "transactionCount": 15005
+    },
+    {
+      "month": "2025-11",
+      "value": 16256415.35,
+      "transactionCount": 12596
+    },
+    {
+      "month": "2025-12",
+      "value": 7467312.76,
+      "transactionCount": 6232
+    }
+  ],
+  "byCategory": [
+    {
+      "category": "DIVULGAÇÃO DA ATIVIDADE PARLAMENTAR.",
+      "value": 289590597.67,
+      "transactionCount": 49350,
+      "pct": 39.9
+    },
+    {
+      "category": "LOCAÇÃO OU FRETAMENTO DE VEÍCULOS AUTOMOTORES",
+      "value": 121028613.09,
+      "transactionCount": 21710,
+      "pct": 16.68
+    },
+    {
+      "category": "PASSAGEM AÉREA - SIGEPA",
+      "value": 111459109.44,
+      "transactionCount": 149553,
+      "pct": 15.36
+    },
+    {
+      "category": "MANUTENÇÃO DE ESCRITÓRIO DE APOIO À ATIVIDADE PARLAMENTAR",
+      "value": 94073854.21,
+      "transactionCount": 59577,
+      "pct": 12.96
+    },
+    {
+      "category": "COMBUSTÍVEIS E LUBRIFICANTES.",
+      "value": 64558588.36,
+      "transactionCount": 211337,
+      "pct": 8.9
+    },
+    {
+      "category": "HOSPEDAGEM ,EXCETO DO PARLAMENTAR NO DISTRITO FEDERAL.",
+      "value": 10058748.64,
+      "transactionCount": 21393,
+      "pct": 1.39
+    },
+    {
+      "category": "TELEFONIA",
+      "value": 8727508.91,
+      "transactionCount": 44524,
+      "pct": 1.2
+    },
+    {
+      "category": "LOCAÇÃO OU FRETAMENTO DE AERONAVES",
+      "value": 5943636.61,
+      "transactionCount": 258,
+      "pct": 0.82
+    },
+    {
+      "category": "SERVIÇO DE SEGURANÇA PRESTADO POR EMPRESA ESPECIALIZADA.",
+      "value": 4303474.97,
+      "transactionCount": 1424,
+      "pct": 0.59
+    },
+    {
+      "category": "PASSAGEM AÉREA - RPA",
+      "value": 3786169.55,
+      "transactionCount": 3133,
+      "pct": 0.52
+    },
+    {
+      "category": "PASSAGEM AÉREA - REEMBOLSO",
+      "value": 3495179.8,
+      "transactionCount": 1161,
+      "pct": 0.48
+    },
+    {
+      "category": "SERVIÇO DE TÁXI, PEDÁGIO E ESTACIONAMENTO",
+      "value": 3271470.24,
+      "transactionCount": 63509,
+      "pct": 0.45
+    },
+    {
+      "category": "FORNECIMENTO DE ALIMENTAÇÃO DO PARLAMENTAR",
+      "value": 2165852.4,
+      "transactionCount": 31837,
+      "pct": 0.3
+    },
+    {
+      "category": "CONSULTORIAS, PESQUISAS E TRABALHOS TÉCNICOS.",
+      "value": 1603237.79,
+      "transactionCount": 131,
+      "pct": 0.22
+    },
+    {
+      "category": "LOCAÇÃO OU FRETAMENTO DE EMBARCAÇÕES",
+      "value": 716708.0,
+      "transactionCount": 131,
+      "pct": 0.1
+    },
+    {
+      "category": "PASSAGENS TERRESTRES, MARÍTIMAS OU FLUVIAIS",
+      "value": 392383.72000000003,
+      "transactionCount": 2313,
+      "pct": 0.05
+    },
+    {
+      "category": "ASSINATURA DE PUBLICAÇÕES",
+      "value": 224840.63,
+      "transactionCount": 767,
+      "pct": 0.03
+    },
+    {
+      "category": "SERVIÇOS POSTAIS",
+      "value": 197058.45,
+      "transactionCount": 752,
+      "pct": 0.03
+    },
+    {
+      "category": "PARTICIPAÇÃO EM CURSO, PALESTRA OU EVENTO SIMILAR",
+      "value": 144623.27,
+      "transactionCount": 25,
+      "pct": 0.02
+    },
+    {
+      "category": "AQUISIÇÃO DE TOKENS E CERTIFICADOS DIGITAIS",
+      "value": 22677.15,
+      "transactionCount": 53,
+      "pct": 0.0
+    }
+  ],
+  "byParty": [
+    {
+      "party": "PL",
+      "value": 121682118.69,
+      "deputyCount": 129,
+      "avgPerDeputy": 943272.24
+    },
+    {
+      "party": "PT",
+      "value": 98839233.2,
+      "deputyCount": 89,
+      "avgPerDeputy": 1110553.18
+    },
+    {
+      "party": "UNIÃO",
+      "value": 85640627.65,
+      "deputyCount": 97,
+      "avgPerDeputy": 882893.07
+    },
+    {
+      "party": "PP",
+      "value": 70745023.19,
+      "deputyCount": 95,
+      "avgPerDeputy": 744684.45
+    },
+    {
+      "party": "PSD",
+      "value": 67798644.77,
+      "deputyCount": 80,
+      "avgPerDeputy": 847483.06
+    },
+    {
+      "party": "REPUBLICANOS",
+      "value": 64956629.97,
+      "deputyCount": 74,
+      "avgPerDeputy": 877792.3
+    },
+    {
+      "party": "MDB",
+      "value": 59694993.76,
+      "deputyCount": 69,
+      "avgPerDeputy": 865144.84
+    },
+    {
+      "party": "PDT",
+      "value": 26146874.86,
+      "deputyCount": 29,
+      "avgPerDeputy": 901616.37
+    },
+    {
+      "party": "PSB",
+      "value": 22976623.31,
+      "deputyCount": 35,
+      "avgPerDeputy": 656474.95
+    },
+    {
+      "party": "PSDB",
+      "value": 20781120.41,
+      "deputyCount": 31,
+      "avgPerDeputy": 670358.72
+    },
+    {
+      "party": "PODE",
+      "value": 19128902.94,
+      "deputyCount": 30,
+      "avgPerDeputy": 637630.1
+    },
+    {
+      "party": "PSOL",
+      "value": 16767073.31,
+      "deputyCount": 16,
+      "avgPerDeputy": 1047942.08
+    },
+    {
+      "party": "PCdoB",
+      "value": 10830644.51,
+      "deputyCount": 11,
+      "avgPerDeputy": 984604.05
+    },
+    {
+      "party": "AVANTE",
+      "value": 10195686.56,
+      "deputyCount": 10,
+      "avgPerDeputy": 1019568.66
+    },
+    {
+      "party": "PRD",
+      "value": 6950978.19,
+      "deputyCount": 7,
+      "avgPerDeputy": 992996.88
+    },
+    {
+      "party": "SOLIDARIEDADE",
+      "value": 6769737.76,
+      "deputyCount": 13,
+      "avgPerDeputy": 520749.06
+    },
+    {
+      "party": "PV",
+      "value": 5607592.19,
+      "deputyCount": 7,
+      "avgPerDeputy": 801084.6
+    },
+    {
+      "party": "NOVO",
+      "value": 4439556.04,
+      "deputyCount": 10,
+      "avgPerDeputy": 443955.6
+    },
+    {
+      "party": "CIDADANIA",
+      "value": 3313086.25,
+      "deputyCount": 6,
+      "avgPerDeputy": 552181.04
+    },
+    {
+      "party": "REDE",
+      "value": 1463912.02,
+      "deputyCount": 5,
+      "avgPerDeputy": 292782.4
+    },
+    {
+      "party": "S.PART.",
+      "value": 381670.64,
+      "deputyCount": 1,
+      "avgPerDeputy": 381670.64
+    },
+    {
+      "party": "PSC",
+      "value": 265985.66,
+      "deputyCount": 8,
+      "avgPerDeputy": 33248.21
+    },
+    {
+      "party": "PATRIOTA",
+      "value": 157328.41999999998,
+      "deputyCount": 5,
+      "avgPerDeputy": 31465.68
+    },
+    {
+      "party": "PTB",
+      "value": 132036.43,
+      "deputyCount": 4,
+      "avgPerDeputy": 33009.11
+    },
+    {
+      "party": "PROS",
+      "value": 98252.17,
+      "deputyCount": 4,
+      "avgPerDeputy": 24563.04
+    }
+  ],
+  "byState": [
+    {
+      "uf": "SP",
+      "value": 88933414.79,
+      "deputyCount": 112,
+      "avgPerDeputy": 794048.35
+    },
+    {
+      "uf": "MG",
+      "value": 72590506.57,
+      "deputyCount": 77,
+      "avgPerDeputy": 942733.85
+    },
+    {
+      "uf": "RJ",
+      "value": 58858552.09,
+      "deputyCount": 77,
+      "avgPerDeputy": 764396.78
+    },
+    {
+      "uf": "BA",
+      "value": 56773974.3,
+      "deputyCount": 52,
+      "avgPerDeputy": 1091807.2
+    },
+    {
+      "uf": "RS",
+      "value": 45589720.09,
+      "deputyCount": 43,
+      "avgPerDeputy": 1060226.05
+    },
+    {
+      "uf": "PR",
+      "value": 43336972.62,
+      "deputyCount": 49,
+      "avgPerDeputy": 884428.01
+    },
+    {
+      "uf": "PE",
+      "value": 37648587.96,
+      "deputyCount": 40,
+      "avgPerDeputy": 941214.7
+    },
+    {
+      "uf": "CE",
+      "value": 33213219.75,
+      "deputyCount": 36,
+      "avgPerDeputy": 922589.44
+    },
+    {
+      "uf": "MA",
+      "value": 26931557.08,
+      "deputyCount": 37,
+      "avgPerDeputy": 727879.92
+    },
+    {
+      "uf": "PA",
+      "value": 23450886.38,
+      "deputyCount": 27,
+      "avgPerDeputy": 868551.35
+    },
+    {
+      "uf": "GO",
+      "value": 22078245.06,
+      "deputyCount": 28,
+      "avgPerDeputy": 788508.75
+    },
+    {
+      "uf": "SC",
+      "value": 20730833.04,
+      "deputyCount": 28,
+      "avgPerDeputy": 740386.89
+    },
+    {
+      "uf": "PB",
+      "value": 18795738.3,
+      "deputyCount": 20,
+      "avgPerDeputy": 939786.92
+    },
+    {
+      "uf": "PI",
+      "value": 15943890.44,
+      "deputyCount": 18,
+      "avgPerDeputy": 885771.69
+    },
+    {
+      "uf": "ES",
+      "value": 14049877.09,
+      "deputyCount": 15,
+      "avgPerDeputy": 936658.47
+    },
+    {
+      "uf": "RR",
+      "value": 13771215.12,
+      "deputyCount": 15,
+      "avgPerDeputy": 918081.01
+    },
+    {
+      "uf": "AC",
+      "value": 13583714.62,
+      "deputyCount": 18,
+      "avgPerDeputy": 754650.81
+    },
+    {
+      "uf": "RO",
+      "value": 13280240.44,
+      "deputyCount": 14,
+      "avgPerDeputy": 948588.6
+    },
+    {
+      "uf": "AP",
+      "value": 13208744.58,
+      "deputyCount": 18,
+      "avgPerDeputy": 733819.14
+    },
+    {
+      "uf": "MS",
+      "value": 12814563.25,
+      "deputyCount": 12,
+      "avgPerDeputy": 1067880.27
+    },
+    {
+      "uf": "RN",
+      "value": 12340883.74,
+      "deputyCount": 13,
+      "avgPerDeputy": 949298.75
+    },
+    {
+      "uf": "AL",
+      "value": 11923399.46,
+      "deputyCount": 14,
+      "avgPerDeputy": 851671.39
+    },
+    {
+      "uf": "TO",
+      "value": 11892916.83,
+      "deputyCount": 15,
+      "avgPerDeputy": 792861.12
+    },
+    {
+      "uf": "SE",
+      "value": 11725159.22,
+      "deputyCount": 15,
+      "avgPerDeputy": 781677.28
+    },
+    {
+      "uf": "MT",
+      "value": 11394866.54,
+      "deputyCount": 17,
+      "avgPerDeputy": 670286.27
+    },
+    {
+      "uf": "AM",
+      "value": 11170391.19,
+      "deputyCount": 13,
+      "avgPerDeputy": 859260.86
+    },
+    {
+      "uf": "DF",
+      "value": 9732262.35,
+      "deputyCount": 16,
+      "avgPerDeputy": 608266.4
+    }
+  ]
+}
