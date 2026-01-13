@@ -67,6 +67,15 @@ export interface DeputyMonthlyBreakdown {
   transactionCount: number;
 }
 
+export interface DeputyAttendance {
+  totalEvents: number;
+  uniqueEvents: number;
+  rate: number;  // Average attendance rate (0-100)
+  events2023: number;
+  events2024: number;
+  events2025: number;
+}
+
 export interface Deputy {
   id: number;
   name: string;
@@ -96,6 +105,14 @@ export interface Deputy {
   byMonth?: DeputyMonthlyBreakdown[];
   zScoreParty?: number;  // Z-score vs party average spending
   zScoreState?: number;  // Z-score vs state average spending
+  // Profile enrichment fields
+  education?: string;       // Education level (e.g., "Superior Completo")
+  profession?: string;      // Professional background (e.g., "Advogado")
+  birthYear?: number;       // Year of birth
+  age?: number;             // Current age
+  mandateCount?: number;    // Number of terms served
+  // Attendance metrics
+  attendance?: DeputyAttendance;
 }
 
 export interface SupplierShare {

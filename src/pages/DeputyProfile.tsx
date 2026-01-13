@@ -161,7 +161,93 @@ export function DeputyProfile() {
         </div>
       </div>
 
-      {/* Section 2: KPI Summary */}
+      {/* Section 2: Profile & Attendance Summary */}
+      {(deputy.education || deputy.profession || deputy.attendance) && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Profile Info */}
+          {(deputy.education || deputy.profession || deputy.mandateCount) && (
+            <div className="glass-card p-4">
+              <h3 className="text-sm font-medium text-text-secondary mb-3">Perfil</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {deputy.education && (
+                  <div>
+                    <p className="text-xs text-text-muted">Escolaridade</p>
+                    <p className="text-sm text-text-primary">{deputy.education}</p>
+                  </div>
+                )}
+                {deputy.profession && (
+                  <div>
+                    <p className="text-xs text-text-muted">Profissão</p>
+                    <p className="text-sm text-text-primary">{deputy.profession}</p>
+                  </div>
+                )}
+                {deputy.age && (
+                  <div>
+                    <p className="text-xs text-text-muted">Idade</p>
+                    <p className="text-sm text-text-primary">{deputy.age} anos</p>
+                  </div>
+                )}
+                {deputy.mandateCount && deputy.mandateCount > 1 && (
+                  <div>
+                    <p className="text-xs text-text-muted">Mandatos</p>
+                    <p className="text-sm text-text-primary">{deputy.mandateCount}º mandato</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Attendance Info */}
+          {deputy.attendance && deputy.attendance.totalEvents > 0 && (
+            <div className="glass-card p-4">
+              <h3 className="text-sm font-medium text-text-secondary mb-3">Presença em Eventos</h3>
+              <div className="flex items-center gap-4 mb-3">
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs text-text-muted">Taxa de presença</span>
+                    <span className={`text-lg font-bold font-mono ${
+                      deputy.attendance.rate >= 70 ? 'text-[#2ECC71]' :
+                      deputy.attendance.rate >= 50 ? 'text-accent-amber' :
+                      'text-accent-red'
+                    }`}>
+                      {deputy.attendance.rate.toFixed(0)}%
+                    </span>
+                  </div>
+                  <div className="h-2 bg-bg-secondary rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${
+                        deputy.attendance.rate >= 70 ? 'bg-[#2ECC71]' :
+                        deputy.attendance.rate >= 50 ? 'bg-accent-amber' :
+                        'bg-accent-red'
+                      }`}
+                      style={{ width: `${Math.min(100, deputy.attendance.rate)}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div className="bg-bg-secondary rounded-lg p-2">
+                  <p className="text-lg font-bold text-text-primary font-mono">{deputy.attendance.events2023}</p>
+                  <p className="text-xs text-text-muted">2023</p>
+                </div>
+                <div className="bg-bg-secondary rounded-lg p-2">
+                  <p className="text-lg font-bold text-text-primary font-mono">{deputy.attendance.events2024}</p>
+                  <p className="text-xs text-text-muted">2024</p>
+                </div>
+                <div className="bg-bg-secondary rounded-lg p-2">
+                  <p className="text-lg font-bold text-text-primary font-mono">{deputy.attendance.events2025}</p>
+                  <p className="text-xs text-text-muted">2025</p>
+                </div>
+              </div>
+              <p className="text-xs text-text-muted mt-2 text-center">
+                {deputy.attendance.totalEvents} eventos totais ({deputy.attendance.uniqueEvents} únicos)
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Section 3: KPI Summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatCard
           title="Total Gasto"

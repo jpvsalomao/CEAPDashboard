@@ -7,8 +7,8 @@ import { formatReais, formatNumber } from '../../utils/formatters';
 import { FEATURES } from '../../config/features';
 import { getStandardMargins, getResponsiveFontSizes, isTouchDevice } from '../../utils/responsive';
 
-type XMetric = 'spending' | 'transactions' | 'supplierCount';
-type YMetric = 'hhi' | 'roundValuePct' | 'benfordChi2';
+type XMetric = 'spending' | 'transactions' | 'supplierCount' | 'attendanceRate' | 'mandateCount';
+type YMetric = 'hhi' | 'roundValuePct' | 'benfordChi2' | 'attendanceRate' | 'age' | 'spending';
 type ColorBy = 'riskLevel' | 'party' | 'uf';
 
 interface ScatterPlotProps {
@@ -20,12 +20,17 @@ const X_METRIC_LABELS: Record<XMetric, string> = {
   spending: 'Gasto Total (R$)',
   transactions: 'Número de Transações',
   supplierCount: 'Número de Fornecedores',
+  attendanceRate: 'Taxa de Presença (%)',
+  mandateCount: 'Número de Mandatos',
 };
 
 const Y_METRIC_LABELS: Record<YMetric, string> = {
   hhi: 'Índice HHI',
   roundValuePct: '% Valores Redondos',
   benfordChi2: 'Chi-quadrado Benford',
+  attendanceRate: 'Taxa de Presença (%)',
+  age: 'Idade (anos)',
+  spending: 'Gasto Total (R$)',
 };
 
 export function ScatterPlot({ deputies, height = 400 }: ScatterPlotProps) {
@@ -42,31 +47,52 @@ export function ScatterPlot({ deputies, height = 400 }: ScatterPlotProps) {
   const scatterData = useMemo(() => {
     if (!deputies.length) return [];
 
+    // Helper to get X metric value - defined INSIDE useMemo to avoid stale closures
+    const getXValue = (d: Deputy): number | null => {
+      switch (xMetric) {
+        case 'spending': return d.totalSpending;
+        case 'transactions': return d.transactionCount;
+        case 'supplierCount': return d.supplierCount;
+        case 'attendanceRate': return d.attendance?.rate ?? null;
+        case 'mandateCount': return d.mandateCount ?? null;
+      }
+    };
+
+    // Helper to get Y metric value - defined INSIDE useMemo to avoid stale closures
+    const getYValue = (d: Deputy): number | null => {
+      switch (yMetric) {
+        case 'hhi': return d.hhi.value;
+        case 'roundValuePct': return d.roundValuePct ?? 0;
+        case 'benfordChi2': return d.benford?.chi2 ?? 0;
+        case 'attendanceRate': return d.attendance?.rate ?? null;
+        case 'age': return d.age ?? null;
+        case 'spending': return d.totalSpending;
+      }
+    };
+
     return deputies
       .filter((d) => d.name && !d.name.includes('LIDERANCA'))
-      .map((d) => ({
-        id: d.id,
-        name: d.name,
-        party: d.party,
-        uf: d.uf,
-        riskLevel: d.riskLevel,
-        x: xMetric === 'spending'
-          ? d.totalSpending
-          : xMetric === 'transactions'
-            ? d.transactionCount
-            : d.supplierCount,
-        y: yMetric === 'hhi'
-          ? d.hhi.value
-          : yMetric === 'roundValuePct'
-            ? d.roundValuePct ?? 0
-            : d.benford?.chi2 ?? 0,
-        colorValue: colorBy === 'riskLevel'
-          ? d.riskLevel
-          : colorBy === 'party'
-            ? d.party
-            : d.uf,
-      }))
-      .filter((d) => d.x > 0 && d.y >= 0);
+      .map((d) => {
+        const x = getXValue(d);
+        const y = getYValue(d);
+        return {
+          id: d.id,
+          name: d.name,
+          party: d.party,
+          uf: d.uf,
+          riskLevel: d.riskLevel,
+          x,
+          y,
+          colorValue: colorBy === 'riskLevel'
+            ? d.riskLevel
+            : colorBy === 'party'
+              ? d.party
+              : d.uf,
+        };
+      })
+      .filter((d): d is typeof d & { x: number; y: number } =>
+        d.x !== null && d.y !== null && d.x >= 0 && d.y >= 0
+      );
   }, [deputies, xMetric, yMetric, colorBy]);
 
   // Color scale based on colorBy selection
@@ -309,8 +335,14 @@ export function ScatterPlot({ deputies, height = 400 }: ScatterPlotProps) {
     if (metric === 'hhi' || metric === 'benfordChi2') {
       return formatNumber(value);
     }
-    if (metric === 'roundValuePct') {
+    if (metric === 'roundValuePct' || metric === 'attendanceRate') {
       return `${value.toFixed(0)}%`;
+    }
+    if (metric === 'mandateCount') {
+      return `${value.toFixed(0)}`;
+    }
+    if (metric === 'age') {
+      return `${value.toFixed(0)}`;
     }
     return formatNumber(value);
   }
@@ -319,8 +351,14 @@ export function ScatterPlot({ deputies, height = 400 }: ScatterPlotProps) {
     if (metric === 'spending') {
       return formatReais(value);
     }
-    if (metric === 'roundValuePct') {
+    if (metric === 'roundValuePct' || metric === 'attendanceRate') {
       return `${value.toFixed(1)}%`;
+    }
+    if (metric === 'mandateCount') {
+      return `${value.toFixed(0)} mandato${value !== 1 ? 's' : ''}`;
+    }
+    if (metric === 'age') {
+      return `${value.toFixed(0)} anos`;
     }
     return formatNumber(value);
   }
@@ -361,6 +399,8 @@ export function ScatterPlot({ deputies, height = 400 }: ScatterPlotProps) {
             <option value="spending">Eixo X: Gastos</option>
             <option value="transactions">Eixo X: Transações</option>
             <option value="supplierCount">Eixo X: Fornecedores</option>
+            <option value="attendanceRate">Eixo X: Presença (%)</option>
+            <option value="mandateCount">Eixo X: Mandatos</option>
           </select>
 
           <select
@@ -371,6 +411,9 @@ export function ScatterPlot({ deputies, height = 400 }: ScatterPlotProps) {
             <option value="hhi">Eixo Y: HHI</option>
             <option value="roundValuePct">Eixo Y: % Redondos</option>
             <option value="benfordChi2">Eixo Y: Benford Chi2</option>
+            <option value="attendanceRate">Eixo Y: Presença (%)</option>
+            <option value="age">Eixo Y: Idade</option>
+            <option value="spending">Eixo Y: Gastos</option>
           </select>
 
           <select

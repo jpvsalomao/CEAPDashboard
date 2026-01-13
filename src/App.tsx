@@ -16,7 +16,7 @@ const DeputyProfile = lazy(() => import('./pages/DeputyProfile').then(m => ({ de
 const Analysis = lazy(() => import('./pages/Analysis').then(m => ({ default: m.Analysis })));
 const Network = lazy(() => import('./pages/Network').then(m => ({ default: m.Network })));
 const Methodology = lazy(() => import('./pages/Methodology').then(m => ({ default: m.Methodology })));
-const DeepDive = lazy(() => import('./pages/DeepDive').then(m => ({ default: m.DeepDive })));
+const Spotlight = lazy(() => import('./pages/Spotlight').then(m => ({ default: m.Spotlight })));
 const DataModel = lazy(() => import('./pages/DataModel').then(m => ({ default: m.DataModel })));
 const Voting = lazy(() => import('./pages/Voting').then(m => ({ default: m.Voting })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
@@ -162,13 +162,23 @@ function App() {
                 }
               />
 
-              {/* DeepDive - Phase 5 */}
+              {/* Spotlight - Phase 5 */}
               <Route
-                path="deepdive/:slug"
+                path="spotlight"
                 element={
-                  <FeatureRoute enabled={FEATURES.SHOW_DEEPDIVE}>
+                  <FeatureRoute enabled={FEATURES.SHOW_SPOTLIGHT}>
                     <Suspense fallback={<PageLoader />}>
-                      <DeepDive />
+                      <Spotlight />
+                    </Suspense>
+                  </FeatureRoute>
+                }
+              />
+              <Route
+                path="spotlight/:slug"
+                element={
+                  <FeatureRoute enabled={FEATURES.SHOW_SPOTLIGHT}>
+                    <Suspense fallback={<PageLoader />}>
+                      <Spotlight />
                     </Suspense>
                   </FeatureRoute>
                 }

@@ -21,9 +21,9 @@ function usePageLabel(): string {
     return 'Perfil';
   }
 
-  // Handle deep dive pages
-  if (location.pathname.startsWith('/deepdive/')) {
-    return 'Deep Dive';
+  // Handle spotlight pages
+  if (location.pathname.startsWith('/spotlight')) {
+    return 'Spotlight';
   }
 
   return matchedItem?.label || 'CEAP';

@@ -16,10 +16,12 @@
     <meta property="og:url" content="https://ceap.escoladados.com/" />
     <meta property="og:title" content="Onde Foi Parar a Cota - Analise de Gastos Parlamentares" />
     <meta property="og:description" content="Dashboard interativo para analise de mais de R$ 700 milhoes em gastos parlamentares. Visualize padroes, detecte anomalias e explore dados de 847 deputados." />
-    <meta property="og:image" content="https://ceap.escoladados.com/og-image.png" />
+    <meta property="og:image" content="https://ceap.escoladados.com/og-image-final.jpg" />
+    <meta name="image" property="og:image" content="https://ceap.escoladados.com/og-image-final.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Dashboard de gastos parlamentares mostrando analise de dados da CEAP" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Escola de Dados" />
 
@@ -28,7 +30,7 @@
     <meta property="twitter:url" content="https://ceap.escoladados.com/" />
     <meta property="twitter:title" content="Onde Foi Parar a Cota - Analise de Gastos Parlamentares" />
     <meta property="twitter:description" content="Dashboard interativo para analise de mais de R$ 700 milhoes em gastos parlamentares. Visualize padroes e detecte anomalias." />
-    <meta property="twitter:image" content="https://ceap.escoladados.com/og-image.png" />
+    <meta property="twitter:image" content="https://ceap.escoladados.com/og-image-final.jpg" />
 
     <!-- Theme Color for Mobile Browsers -->
     <meta name="theme-color" content="#0A0A0C" />
@@ -71,7 +73,13 @@
           "@type": "Dataset",
           "name": "Dados Abertos da Camara dos Deputados",
           "url": "https://dadosabertos.camara.leg.br",
-          "description": "Dados de gastos parlamentares (CEAP) de 2023-2025"
+          "description": "Dados oficiais de gastos parlamentares da Cota para Exercicio da Atividade Parlamentar (CEAP) dos deputados federais brasileiros, abrangendo o periodo de 2023 a 2025.",
+          "creator": {
+            "@type": "Organization",
+            "name": "Camara dos Deputados",
+            "url": "https://www.camara.leg.br"
+          },
+          "license": "https://dadosabertos.camara.leg.br/howtouse/termo-de-uso-dados-abertos.html"
         }
       }
     </script>
@@ -79,5 +87,9 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Cloudflare Web Analytics -->
+    <!-- Get your token from: Cloudflare Dashboard > Web Analytics > Add Site -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e0da96b209f14f67a282cfa6e02a5e00"}'></script>
   </body>
 </html>

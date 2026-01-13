@@ -501,6 +501,18 @@ function DeputyRow({ deputy }: { deputy: Deputy }) {
                       {deputy.riskScore.toFixed(1)}
                     </span>
                   </div>
+                  {deputy.attendance && deputy.attendance.rate > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-text-muted">Presença:</span>
+                      <span className={`font-mono ${
+                        deputy.attendance.rate >= 70 ? 'text-[#2ECC71]' :
+                        deputy.attendance.rate >= 50 ? 'text-accent-amber' :
+                        'text-accent-red'
+                      }`}>
+                        {deputy.attendance.rate.toFixed(0)}%
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

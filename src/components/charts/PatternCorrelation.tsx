@@ -20,6 +20,8 @@ const METRICS: MetricData[] = [
   { id: 'avgTicket', label: 'Ticket Médio', getValue: (d) => d.avgTicket ?? 0 },
   { id: 'txCount', label: 'Transações', getValue: (d) => d.transactionCount ?? 0 },
   { id: 'suppliers', label: 'Fornecedores', getValue: (d) => d.supplierCount ?? 0 },
+  { id: 'attendance', label: 'Presença %', getValue: (d) => d.attendance?.rate ?? 0 },
+  { id: 'mandates', label: 'Mandatos', getValue: (d) => d.mandateCount ?? 1 },
 ];
 
 // Calculate Pearson correlation coefficient

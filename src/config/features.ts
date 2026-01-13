@@ -5,7 +5,7 @@
  * Phase 2 (Week 2): + Deputados
  * Phase 3 (Week 3): + Padrões
  * Phase 4 (Week 4): + Rede, Metodologia
- * Phase 5 (Week 5+): + DeepDive
+ * Phase 5 (Week 5+): + Spotlight
  *
  * To enable a phase, set the corresponding flags to true
  */
@@ -22,7 +22,7 @@ export const FEATURES = {
   SHOW_METHODOLOGY_TAB: true,
 
   // Phase 5
-  SHOW_DEEPDIVE: false,
+  SHOW_SPOTLIGHT: true,
 
   // Subscriber Content
   SHOW_SUBSCRIBER_PREVIEW: true,    // Show locked section with teaser
@@ -32,7 +32,7 @@ export const FEATURES = {
   SHOW_DATA_MODEL_TAB: true, // Show in Em Breve, accessible for development
 
   // Growth Features
-  SHOW_VOTING_TAB: true, // Vote for next deep dive investigation
+  SHOW_VOTING_TAB: true, // Vote for next spotlight investigation
 } as const;
 
 // Helper to check if a route should be accessible
@@ -46,7 +46,7 @@ export function isRouteEnabled(path: string): boolean {
   if (path === '/padrões' || path === '/análise') return FEATURES.SHOW_PATTERNS_TAB;
   if (path === '/rede') return FEATURES.SHOW_NETWORK_TAB;
   if (path === '/metodologia') return FEATURES.SHOW_METHODOLOGY_TAB;
-  if (path.startsWith('/deepdive')) return FEATURES.SHOW_DEEPDIVE;
+  if (path.startsWith('/spotlight')) return FEATURES.SHOW_SPOTLIGHT;
   if (path === '/votar') return FEATURES.SHOW_VOTING_TAB;
   if (path === '/modelo-de-dados') return FEATURES.SHOW_DATA_MODEL_TAB;
 
@@ -85,6 +85,7 @@ export function getNavSections(): NavSection[] {
         { path: '/deputados', label: 'Deputados', icon: '👤', enabled: FEATURES.SHOW_DEPUTIES_TAB },
         { path: '/padrões', label: 'Padrões', icon: '🔍', enabled: FEATURES.SHOW_PATTERNS_TAB },
         { path: '/rede', label: 'Rede', icon: '🕸️', enabled: FEATURES.SHOW_NETWORK_TAB },
+        { path: '/spotlight', label: 'Spotlight', icon: '🔦', enabled: FEATURES.SHOW_SPOTLIGHT },
       ].filter(i => i.enabled),
     },
     // Participe section

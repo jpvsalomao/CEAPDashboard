@@ -115,6 +115,15 @@ def load_data():
         print(f"  ! Warning: {mismatch_path} not found")
         data["mismatches"] = pd.DataFrame()
 
+    # Deputy enrichment data (attendance, education, profession)
+    enrichment_path = DATA_DIR / "deputy_enrichment.csv"
+    if enrichment_path.exists():
+        data["enrichment"] = pd.read_csv(enrichment_path)
+        print(f"  - Loaded {len(data['enrichment']):,} deputy enrichment records")
+    else:
+        print(f"  ! Warning: {enrichment_path} not found (run process_enrichment.py)")
+        data["enrichment"] = pd.DataFrame()
+
     return data
 
 
@@ -449,8 +458,8 @@ def calculate_benford_analysis(values):
     }
 
 
-def generate_deputies(expenses_df, hhi_df, fraud_df):
-    """Generate deputies.json with per-deputy data."""
+def generate_deputies(expenses_df, hhi_df, fraud_df, enrichment_df=None):
+    """Generate deputies.json with per-deputy data including enrichment (attendance, education)."""
     print("\nGenerating deputies.json...")
 
     deputies = []
@@ -608,6 +617,29 @@ def generate_deputies(expenses_df, hhi_df, fraud_df):
             red_flags.append(f"Desvio significativo da Lei de Benford (chi2={benford_result['chi2']:.1f})")
             risk_score = min(risk_score + 0.15, 1.0)
 
+        # Get enrichment data (attendance, education, profession)
+        enrichment = {}
+        if enrichment_df is not None and not enrichment_df.empty:
+            # Try to match by name (enrichment has 'nome' column)
+            enrich_row = enrichment_df[enrichment_df["nome"].str.lower() == str(name).lower()]
+            if len(enrich_row) > 0:
+                row = enrich_row.iloc[0]
+                enrichment = {
+                    "education": str(row.get("escolaridade", "")) if pd.notna(row.get("escolaridade")) else None,
+                    "profession": str(row.get("profissao", "")) if pd.notna(row.get("profissao")) else None,
+                    "birthYear": int(row.get("birthYear")) if pd.notna(row.get("birthYear")) else None,
+                    "age": int(row.get("age")) if pd.notna(row.get("age")) else None,
+                    "mandateCount": int(row.get("mandateCount", 1)) if pd.notna(row.get("mandateCount")) else 1,
+                    "attendance": {
+                        "totalEvents": int(row.get("totalEvents", 0)) if pd.notna(row.get("totalEvents")) else 0,
+                        "uniqueEvents": int(row.get("uniqueEvents", 0)) if pd.notna(row.get("uniqueEvents")) else 0,
+                        "rate": float(row.get("avgAttendanceRate", 0)) if pd.notna(row.get("avgAttendanceRate")) else 0,
+                        "events2023": int(row.get("attendance2023", 0)) if pd.notna(row.get("attendance2023")) else 0,
+                        "events2024": int(row.get("attendance2024", 0)) if pd.notna(row.get("attendance2024")) else 0,
+                        "events2025": int(row.get("attendance2025", 0)) if pd.notna(row.get("attendance2025")) else 0,
+                    } if row.get("totalEvents", 0) > 0 else None
+                }
+
         deputy = {
             "id": idx + 1,
             "name": str(name),
@@ -629,7 +661,14 @@ def generate_deputies(expenses_df, hhi_df, fraud_df):
             "topSuppliers": top_suppliers,
             "redFlags": red_flags,
             "byCategory": category_breakdown,
-            "byMonth": monthly_breakdown
+            "byMonth": monthly_breakdown,
+            # Enrichment data (attendance, education, etc)
+            "education": enrichment.get("education"),
+            "profession": enrichment.get("profession"),
+            "birthYear": enrichment.get("birthYear"),
+            "age": enrichment.get("age"),
+            "mandateCount": enrichment.get("mandateCount", 1),
+            "attendance": enrichment.get("attendance"),
         }
         deputies.append(deputy)
 
@@ -1088,7 +1127,7 @@ def main():
     aggregations = generate_aggregations(data["expenses"])
     save_json(aggregations, "aggregations.json")
 
-    deputies = generate_deputies(data["expenses"], data["hhi"], data["fraud"])
+    deputies = generate_deputies(data["expenses"], data["hhi"], data["fraud"], data.get("enrichment"))
     save_json(deputies, "deputies.json")
 
     fraud_flags = generate_fraud_flags(data["fraud"])

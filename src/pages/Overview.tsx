@@ -10,10 +10,12 @@ import { StateTreemap } from '../components/charts/StateTreemap';
 import { TemporalAnalysis } from '../components/charts/TemporalAnalysis';
 import { StatisticalInsights } from '../components/charts/StatisticalInsights';
 import { TopSpenders } from '../components/charts/TopSpenders';
+import { ProfileOverview } from '../components/charts/ProfileOverview';
+import { SpendingMandateCorrelation } from '../components/charts/SpendingMandateCorrelation';
 import { FilterBar } from '../components/filters/FilterBar';
 import { ChartSkeleton, StatCardSkeleton } from '../components/ui/Skeleton';
 import { ChartErrorBoundary, SectionErrorBoundary } from '../components/ui/ErrorBoundary';
-import { ErrorState } from '../components/ui/EmptyState';
+import { NoResults } from '../components/ui/EmptyState';
 import { ChartAnimation } from '../components/ui/ChartAnimation';
 import { FavoritesSection } from '../components/ui/FavoritesSection';
 import { DataFreshness } from '../components/ui/DataFreshness';
@@ -41,6 +43,16 @@ export function Overview() {
   const topDeputies = useTopDeputies(10);
   const deputyStats = useDeputyStats();
   const hasFilters = useFiltersStore((s) => s.hasActiveFilters());
+  const clearFilters = useFiltersStore((s) => s.clearFilters);
+  const filterCount = useFiltersStore((s) => {
+    let count = 0;
+    if (s.years.length) count++;
+    if (s.states.length) count++;
+    if (s.parties.length) count++;
+    if (s.categories.length) count++;
+    if (s.riskLevels.length) count++;
+    return count;
+  });
   const [partyMetric, setPartyMetric] = useState<'total' | 'average'>('total');
 
   if (isLoading) {
@@ -64,8 +76,12 @@ export function Overview() {
 
   if (!aggregations || aggregations.meta.totalDeputies === 0) {
     return (
-      <div className="glass-card p-6">
-        <ErrorState message="Nenhum dado encontrado para os filtros selecionados." />
+      <div className="space-y-6">
+        <Header title="Visão Geral" subtitle="Nenhum resultado para os filtros aplicados" showSearch={false} />
+        <FilterBar />
+        <div className="glass-card p-6">
+          <NoResults filterCount={filterCount} onClearFilters={clearFilters} />
+        </div>
       </div>
     );
   }
@@ -325,25 +341,47 @@ export function Overview() {
           subtitle="Relação entre gastos, transações e concentração"
         />
 
-        <ChartAnimation delay={350}>
-          <div className="glass-card p-6">
-            <ChartErrorBoundary chartName="gráfico de correlação">
-              
+        <div className="space-y-6">
+          <ChartAnimation delay={350}>
+            <div className="glass-card p-6">
+              <ChartErrorBoundary chartName="gráfico de correlação">
                 <ScatterPlot deputies={allDeputies} height={420} />
-              
-            </ChartErrorBoundary>
-          </div>
+              </ChartErrorBoundary>
+            </div>
+          </ChartAnimation>
+
+          {/* Spending vs Mandates Regression */}
+          <ChartAnimation delay={380}>
+            <div className="glass-card p-6">
+              <ChartErrorBoundary chartName="correlação gasto vs mandatos">
+                <SpendingMandateCorrelation
+                  deputies={allDeputies}
+                  height={420}
+                  minSpending={100000}
+                />
+              </ChartErrorBoundary>
+            </div>
+          </ChartAnimation>
+        </div>
+      </section>
+
+      {/* ===== SECTION 8: PERFIL ===== */}
+      <section>
+        <ChartAnimation delay={400}>
+          <SectionErrorBoundary sectionName="perfil dos deputados">
+            <ProfileOverview deputies={allDeputies} />
+          </SectionErrorBoundary>
         </ChartAnimation>
       </section>
 
-      {/* ===== SECTION 8: INSIGHTS ===== */}
+      {/* ===== SECTION 9: INSIGHTS ===== */}
       <section>
         <SectionHeader
           title="Insights Estatísticos"
           subtitle="Análises e correlações identificadas nos dados"
         />
 
-        <ChartAnimation delay={400}>
+        <ChartAnimation delay={450}>
           <div className="glass-card p-6">
             <SectionErrorBoundary sectionName="insights estatísticos">
               <StatisticalInsights deputies={allDeputies} />
