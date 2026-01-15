@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ceap.escoladados.com/sitemap.xml
+<!-- cache bust Wed Jan 14 22:21:38 PST 2026 -->
