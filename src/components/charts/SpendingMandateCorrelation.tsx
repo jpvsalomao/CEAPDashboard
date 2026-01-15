@@ -94,7 +94,6 @@ export function SpendingMandateCorrelation({
 }: SpendingMandateCorrelationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   // Prepare and filter data
@@ -141,7 +140,7 @@ export function SpendingMandateCorrelation({
   }, [deputies, minSpending]);
 
   useEffect(() => {
-    if (!scatterData.length || !containerRef.current || !svgRef.current || !tooltipRef.current) return;
+    if (!scatterData.length || !containerRef.current || !svgRef.current) return;
 
     const containerWidth = containerRef.current.clientWidth;
     const margin = getStandardMargins(containerWidth);
@@ -177,8 +176,14 @@ export function SpendingMandateCorrelation({
       .range([chartHeight, 0])
       .nice();
 
-    // Tooltip reference
-    const tooltip = d3.select(tooltipRef.current);
+    // Create tooltip element (appended to body for proper z-index)
+    const tooltipEl = document.createElement('div');
+    tooltipEl.className = 'tooltip';
+    tooltipEl.style.opacity = '0';
+    tooltipEl.style.position = 'fixed';
+    tooltipEl.style.pointerEvents = 'none';
+    tooltipEl.style.zIndex = '9999';
+    document.body.appendChild(tooltipEl);
 
     // Grid lines
     g.append('g')
@@ -269,45 +274,43 @@ export function SpendingMandateCorrelation({
         const residual = d.totalSpending - predicted;
         const residualPct = (residual / predicted) * 100;
 
-        tooltip
-          .style('opacity', 1)
-          .html(`
-            <div class="tooltip-title font-semibold">${d.name}</div>
-            <div class="tooltip-label text-text-muted">${d.party} - ${d.uf}</div>
-            <div class="tooltip-divider border-t border-bg-tertiary my-1"></div>
-            <div class="tooltip-row flex justify-between gap-4">
-              <span class="text-text-muted">Mandatos:</span>
-              <span class="font-medium">${d.mandateCount}º mandato</span>
-            </div>
-            <div class="tooltip-row flex justify-between gap-4">
-              <span class="text-text-muted">Gasto Total:</span>
-              <span class="font-medium">${formatReais(d.totalSpending)}</span>
-            </div>
-            <div class="tooltip-row flex justify-between gap-4">
-              <span class="text-text-muted">Esperado:</span>
-              <span class="font-mono text-text-muted">${formatReais(predicted)}</span>
-            </div>
-            <div class="tooltip-row flex justify-between gap-4">
-              <span class="text-text-muted">Desvio:</span>
-              <span class="font-mono ${residual > 0 ? 'text-accent-red' : 'text-[#2ECC71]'}">
-                ${residual > 0 ? '+' : ''}${residualPct.toFixed(0)}%
-              </span>
-            </div>
-          `)
-          .style('left', `${event.offsetX + 15}px`)
-          .style('top', `${event.offsetY - 10}px`);
+        tooltipEl.innerHTML = `
+          <div class="tooltip-title font-semibold">${d.name}</div>
+          <div class="tooltip-label text-text-muted">${d.party} - ${d.uf}</div>
+          <div class="tooltip-divider border-t border-bg-tertiary my-1"></div>
+          <div class="tooltip-row flex justify-between gap-4">
+            <span class="text-text-muted">Mandatos:</span>
+            <span class="font-medium">${d.mandateCount}º mandato</span>
+          </div>
+          <div class="tooltip-row flex justify-between gap-4">
+            <span class="text-text-muted">Gasto Total:</span>
+            <span class="font-medium">${formatReais(d.totalSpending)}</span>
+          </div>
+          <div class="tooltip-row flex justify-between gap-4">
+            <span class="text-text-muted">Esperado:</span>
+            <span class="font-mono text-text-muted">${formatReais(predicted)}</span>
+          </div>
+          <div class="tooltip-row flex justify-between gap-4">
+            <span class="text-text-muted">Desvio:</span>
+            <span class="font-mono ${residual > 0 ? 'text-accent-red' : 'text-[#2ECC71]'}">
+              ${residual > 0 ? '+' : ''}${residualPct.toFixed(0)}%
+            </span>
+          </div>
+        `;
+        tooltipEl.style.opacity = '1';
+        tooltipEl.style.left = `${event.clientX + 15}px`;
+        tooltipEl.style.top = `${event.clientY - 10}px`;
       })
       .on('mousemove', function(event) {
-        tooltip
-          .style('left', `${event.offsetX + 15}px`)
-          .style('top', `${event.offsetY - 10}px`);
+        tooltipEl.style.left = `${event.clientX + 15}px`;
+        tooltipEl.style.top = `${event.clientY - 10}px`;
       })
       .on('mouseleave touchend', function() {
         d3.select(this)
           .attr('r', pointRadius)
           .attr('opacity', 0.7)
           .attr('stroke-width', 1);
-        tooltip.style('opacity', 0);
+        tooltipEl.style.opacity = '0';
       })
       .on('click', (_, d) => {
         if (FEATURES.SHOW_DEPUTIES_TAB) {
@@ -374,6 +377,10 @@ export function SpendingMandateCorrelation({
         .text('Gasto Total (R$)');
     }
 
+    // Cleanup tooltip on unmount
+    return () => {
+      document.body.removeChild(tooltipEl);
+    };
   }, [scatterData, regression, height, navigate]);
 
   if (!deputies.length || scatterData.length < 10) {
@@ -466,11 +473,6 @@ export function SpendingMandateCorrelation({
       {/* Chart */}
       <div ref={containerRef} className="chart-container relative">
         <svg ref={svgRef} />
-        <div
-          ref={tooltipRef}
-          className="tooltip absolute pointer-events-none bg-bg-secondary border border-bg-tertiary rounded-lg px-3 py-2 text-sm shadow-lg z-10"
-          style={{ opacity: 0 }}
-        />
       </div>
 
       {/* Legend and notes */}

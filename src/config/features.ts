@@ -32,7 +32,7 @@ export const FEATURES = {
   SHOW_DATA_MODEL_TAB: true, // Show in Em Breve, accessible for development
 
   // Growth Features
-  SHOW_VOTING_TAB: true, // Vote for next spotlight investigation
+  SHOW_VOTING_TAB: false, // Vote for next spotlight investigation (WIP - needs OAuth redirect fix)
 } as const;
 
 // Helper to check if a route should be accessible

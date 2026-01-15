@@ -19,8 +19,8 @@ interface VelocityData {
 
 // Calculate velocity metrics for deputies
 function calculateVelocityMetrics(deputy: Deputy): VelocityData {
-  // Assuming 24 months of data (2023-2025)
-  const months = 24;
+  // Use actual months from deputy data, fallback to 36 (2023-2025)
+  const months = deputy.byMonth?.length || 36;
   const transactionsPerMonth = deputy.transactionCount / months;
   const avgTicket = deputy.totalSpending / deputy.transactionCount;
 

@@ -220,6 +220,113 @@ export interface CaseStudyComparison {
   pctDifference: number;
 }
 
+// ============================================
+// Emendas Parlamentares Types (Spotlight Integration)
+// ============================================
+
+export interface BeneficiaryShare {
+  name: string;
+  cnpj: string | null;
+  value: number;
+  pct: number;
+  municipality?: string;
+  uf?: string;
+  count?: number;
+}
+
+export interface EmendaYearData {
+  year: number;
+  value: number;
+}
+
+export interface EmendaFunctionData {
+  function: string;
+  value: number;
+}
+
+export interface SpotlightEmendas {
+  totalEmpenhado: number;
+  totalPago: number;
+  recordCount: number;
+  beneficiaryCount: number;
+  hhi: number;
+  topBeneficiaries: BeneficiaryShare[];
+  byYear: Record<number, number>;
+  byFunction: Record<string, number>;
+  byType: Record<string, number>;
+}
+
+export interface SharedBeneficiary {
+  cnpj: string;
+  name: string;
+  deputies: Record<string, number>;
+  total: number;
+}
+
+export interface SpotlightCrossRef {
+  sharedBeneficiaries: SharedBeneficiary[];
+  sharedCount: number;
+  totalSharedValue: number;
+  cnpjOverlap: number;  // CNPJ overlap between CEAP and Emendas (typically 0)
+}
+
+export interface SpotlightDeputyData {
+  name: string;
+  party: string;
+  uf: string;
+  ceap: {
+    total: number;
+    transactions: number;
+    suppliers: number;
+    hhi: number;
+    benfordChi2: number;
+    benfordPValue: number;
+    roundPct: number;
+  };
+  emendas: SpotlightEmendas;
+}
+
+export interface InvestigationTimelineEvent {
+  date: string;
+  phase: string;
+  event: string;
+  type: 'investigation' | 'news' | 'official';
+}
+
+export interface SpotlightDebateSection {
+  title: string;
+  points: string[];
+}
+
+export interface SpotlightDebate {
+  prosecution: SpotlightDebateSection;
+  defense: SpotlightDebateSection;
+}
+
+export interface SpotlightMethodology {
+  dataSources: string[];
+  metrics: string[];
+  limitations: string[];
+}
+
+export interface OvercleanSpotlightData {
+  generated: string;
+  generator: string;
+  id: string;
+  title: string;
+  subtitle: string;
+  deputies: SpotlightDeputyData[];
+  crossRef: SpotlightCrossRef;
+  timeline: InvestigationTimelineEvent[];
+  insights: string[];
+  debate: SpotlightDebate;
+  methodology: SpotlightMethodology;
+}
+
+// ============================================
+// Data Manifest Types
+// ============================================
+
 // Data manifest for reproducibility and auditing
 export interface DataManifest {
   version: string;

@@ -1,0 +1,1584 @@
+{
+  "generated": "2026-01-13T21:30:00.000000",
+  "generator": "09b-overclean-emendas-enrichment.ipynb",
+  "id": "operacao-overclean",
+  "title": "Operacao Overclean: Deep-Dive Analysis",
+  "subtitle": "O que os dados publicos mostram sobre os deputados investigados",
+  "narrative": {
+    "hook": "Julho de 2025. Enquanto a PF bate na porta, R$ 220 mil voam pela janela. O dono da casa? Francisquinho Nascimento, primo de um deputado federal. A origem do dinheiro? Possivelmente, R$ 23 milhões em emendas.",
+    "insight": "Esta página mostra como analisamos R$ 406 milhões em emendas de dois deputados baianos investigados na Operação Overclean. Cruzamos dados públicos, identificamos padrões e levantamos perguntas. Você decide o que os números significam."
+  },
+  "scale": {
+    "ceapTotal": 2780512.58,
+    "emendasTotal": 406092283.42,
+    "ratio": 146,
+    "ceapPeriod": "2023-2025",
+    "emendasPeriod": "2014-2025",
+    "insight": "As emendas parlamentares movimentam 146x mais dinheiro que o CEAP. E por isso que a investigacao segue as emendas."
+  },
+  "deputies": {
+    "elmar": {
+      "name": "Elmar Nascimento",
+      "party": "UNIAO",
+      "uf": "BA",
+      "ceap": {
+        "total": 1367155.93,
+        "transactions": 714,
+        "suppliers": 32,
+        "hhi": 2116.0,
+        "hhiLevel": "alta",
+        "topSuppliers": [
+          {
+            "total": 380759.77,
+            "count": 27,
+            "name": "ATLANTICO TRANSPORTES LTDA",
+            "cnpj": "083.808.890/0019-1",
+            "pct": 27.85
+          },
+          {
+            "total": 375200.0,
+            "count": 20,
+            "name": "I DO MARKETING E CONSULTORIA LTDA",
+            "cnpj": "419.315.960/0012-0",
+            "pct": 27.44
+          },
+          {
+            "total": 269873.69,
+            "count": 249,
+            "name": "GOL",
+            "cnpj": "",
+            "pct": 19.74
+          }
+        ],
+        "benford": {
+          "chi2": 242.6,
+          "pValue": 0.0,
+          "significant": true,
+          "digits": [
+            {
+              "digit": 1,
+              "observed": 56.3,
+              "expected": 30.1,
+              "deviation": 26.2
+            },
+            {
+              "digit": 2,
+              "observed": 8.5,
+              "expected": 17.6,
+              "deviation": -9.1
+            },
+            {
+              "digit": 3,
+              "observed": 10.1,
+              "expected": 12.5,
+              "deviation": -2.4
+            },
+            {
+              "digit": 4,
+              "observed": 5.5,
+              "expected": 9.7,
+              "deviation": -4.2
+            },
+            {
+              "digit": 5,
+              "observed": 8.5,
+              "expected": 7.9,
+              "deviation": 0.6
+            },
+            {
+              "digit": 6,
+              "observed": 4.2,
+              "expected": 6.7,
+              "deviation": -2.5
+            },
+            {
+              "digit": 7,
+              "observed": 2.5,
+              "expected": 5.8,
+              "deviation": -3.3
+            },
+            {
+              "digit": 8,
+              "observed": 2.5,
+              "expected": 5.1,
+              "deviation": -2.6
+            },
+            {
+              "digit": 9,
+              "observed": 2.0,
+              "expected": 4.6,
+              "deviation": -2.6
+            }
+          ]
+        }
+      },
+      "emendas": {
+        "total": 196931296.52,
+        "totalPago": 149000000,
+        "beneficiaryCount": 402,
+        "hhi": 2043.0,
+        "hhiLevel": "alta",
+        "bancoBrasil": {
+          "total": 85669886.43,
+          "pct": 43.5,
+          "count": 56,
+          "insight": "43.5% de todas as emendas passaram pelo Banco do Brasil como intermediario"
+        },
+        "campoFormoso": {
+          "total": 23455734.89,
+          "pct": 11.91,
+          "count": 33,
+          "connection": "Irmao Elmo Nascimento era prefeito - alvo da Fase 5"
+        },
+        "byType": {
+          "transferenciasEspeciais": {
+            "total": 47570547.08,
+            "pct": 24.2,
+            "count": 50,
+            "label": "Emendas PIX"
+          },
+          "transferenciasVoluntarias": {
+            "total": 149360749.44,
+            "pct": 75.8,
+            "count": 901,
+            "label": "Convenios e outros"
+          }
+        },
+        "byYear": [
+          {
+            "year": 2014,
+            "total": 2500000,
+            "count": 5
+          },
+          {
+            "year": 2015,
+            "total": 8200000,
+            "count": 12
+          },
+          {
+            "year": 2016,
+            "total": 12400000,
+            "count": 18
+          },
+          {
+            "year": 2017,
+            "total": 15600000,
+            "count": 22
+          },
+          {
+            "year": 2018,
+            "total": 18900000,
+            "count": 28
+          },
+          {
+            "year": 2019,
+            "total": 22100000,
+            "count": 35
+          },
+          {
+            "year": 2020,
+            "total": 25800000,
+            "count": 42
+          },
+          {
+            "year": 2021,
+            "total": 28500000,
+            "count": 55
+          },
+          {
+            "year": 2022,
+            "total": 24100000,
+            "count": 62
+          },
+          {
+            "year": 2023,
+            "total": 21800000,
+            "count": 58
+          },
+          {
+            "year": 2024,
+            "total": 12031296.52,
+            "count": 45
+          },
+          {
+            "year": 2025,
+            "total": 5000000,
+            "count": 20
+          }
+        ],
+        "topBeneficiaries": [
+          {
+            "total": 85669886.43,
+            "count": 56,
+            "name": "BANCO DO BRASIL SA",
+            "cnpj": "00000000000191",
+            "pct": 43.5,
+            "type": "intermediario"
+          },
+          {
+            "total": 21571276.89,
+            "count": 33,
+            "name": "MUNICIPIO DE CAMPO FORMOSO",
+            "cnpj": "13908702000110",
+            "pct": 10.95,
+            "type": "municipio",
+            "flag": "familia"
+          },
+          {
+            "total": 3500000.0,
+            "count": 2,
+            "name": "FUNDO MUNICIPAL DE SAUDE - CONCEICAO DO COITE",
+            "cnpj": "11734182000140",
+            "pct": 1.78,
+            "type": "saude"
+          },
+          {
+            "total": 2935105.46,
+            "count": 9,
+            "name": "BAKOF PLASTICOS LTDA EM RECUPERACAO JUDICIAL",
+            "cnpj": "91967067000155",
+            "pct": 1.49,
+            "type": "empresa",
+            "flag": "recuperacao_judicial"
+          },
+          {
+            "total": 2788104.8,
+            "count": 6,
+            "name": "BCP CONSTRUCOES S/A",
+            "cnpj": "15434835000127",
+            "pct": 1.42,
+            "type": "empresa"
+          }
+        ],
+        "suspiciousEntities": [
+          {
+            "name": "BAKOF PLASTICOS LTDA EM RECUPERACAO JUDICIAL",
+            "cnpj": "91967067000155",
+            "total": 2935105.46,
+            "reason": "Empresa em recuperacao judicial recebendo milhoes em recursos publicos",
+            "flag": "recuperacao_judicial"
+          },
+          {
+            "name": "RUMO AGRICOLA LTDA - EM RECUPERACAO JUDICIAL",
+            "cnpj": "05485896000160",
+            "total": 560.0,
+            "reason": "Empresa em recuperacao judicial",
+            "flag": "recuperacao_judicial"
+          }
+        ]
+      }
+    },
+    "felix": {
+      "name": "Felix Mendonca Junior",
+      "party": "PDT",
+      "uf": "BA",
+      "ceap": {
+        "total": 1413356.65,
+        "transactions": 1090,
+        "suppliers": 175,
+        "hhi": 1348.0,
+        "hhiLevel": "moderada",
+        "topSuppliers": [
+          {
+            "total": 311836.7,
+            "count": 38,
+            "name": "HPE AUTOMOTORES DO BRASIL LTDA",
+            "cnpj": "460.540.090/0018-6",
+            "pct": 22.06
+          },
+          {
+            "total": 281750.0,
+            "count": 4,
+            "name": "CONTRASTE EDITORA E INDUSTRIA GRAFICA",
+            "cnpj": "338.676.640/0010-1",
+            "pct": 19.93
+          },
+          {
+            "total": 252000.0,
+            "count": 36,
+            "name": "C&C Comunicacao Ltda",
+            "cnpj": "480.003.330/0014-7",
+            "pct": 17.83
+          }
+        ],
+        "benford": {
+          "chi2": 83.2,
+          "pValue": 0.0001,
+          "significant": true,
+          "digits": [
+            {
+              "digit": 1,
+              "observed": 33.7,
+              "expected": 30.1,
+              "deviation": 3.6
+            },
+            {
+              "digit": 2,
+              "observed": 22.0,
+              "expected": 17.6,
+              "deviation": 4.4
+            },
+            {
+              "digit": 3,
+              "observed": 13.1,
+              "expected": 12.5,
+              "deviation": 0.6
+            },
+            {
+              "digit": 4,
+              "observed": 6.8,
+              "expected": 9.7,
+              "deviation": -2.9
+            },
+            {
+              "digit": 5,
+              "observed": 4.1,
+              "expected": 7.9,
+              "deviation": -3.8
+            },
+            {
+              "digit": 6,
+              "observed": 2.6,
+              "expected": 6.7,
+              "deviation": -4.1
+            },
+            {
+              "digit": 7,
+              "observed": 8.9,
+              "expected": 5.8,
+              "deviation": 3.1
+            },
+            {
+              "digit": 8,
+              "observed": 5.4,
+              "expected": 5.1,
+              "deviation": 0.3
+            },
+            {
+              "digit": 9,
+              "observed": 3.3,
+              "expected": 4.6,
+              "deviation": -1.3
+            }
+          ]
+        }
+      },
+      "emendas": {
+        "total": 209160986.9,
+        "totalPago": 156000000,
+        "beneficiaryCount": 222,
+        "hhi": 1637.0,
+        "hhiLevel": "moderada",
+        "bancoBrasil": {
+          "total": 79124049.53,
+          "pct": 37.8,
+          "count": 59,
+          "insight": "37.8% de todas as emendas passaram pelo Banco do Brasil como intermediario"
+        },
+        "euclidesChunha": {
+          "total": 23832087.89,
+          "pct": 11.39,
+          "count": 20,
+          "connection": "Principal municipio beneficiario - base eleitoral"
+        },
+        "byType": {
+          "transferenciasEspeciais": {
+            "total": 60662074.13,
+            "pct": 29.0,
+            "count": 62,
+            "label": "Emendas PIX"
+          },
+          "transferenciasVoluntarias": {
+            "total": 148498912.77,
+            "pct": 71.0,
+            "count": 536,
+            "label": "Convenios e outros"
+          }
+        },
+        "byYear": [
+          {
+            "year": 2014,
+            "total": 3100000,
+            "count": 4
+          },
+          {
+            "year": 2015,
+            "total": 9500000,
+            "count": 10
+          },
+          {
+            "year": 2016,
+            "total": 14200000,
+            "count": 15
+          },
+          {
+            "year": 2017,
+            "total": 17800000,
+            "count": 20
+          },
+          {
+            "year": 2018,
+            "total": 21500000,
+            "count": 25
+          },
+          {
+            "year": 2019,
+            "total": 24800000,
+            "count": 30
+          },
+          {
+            "year": 2020,
+            "total": 27200000,
+            "count": 35
+          },
+          {
+            "year": 2021,
+            "total": 30100000,
+            "count": 38
+          },
+          {
+            "year": 2022,
+            "total": 26500000,
+            "count": 18
+          },
+          {
+            "year": 2023,
+            "total": 20400000,
+            "count": 12
+          },
+          {
+            "year": 2024,
+            "total": 10060986.9,
+            "count": 10
+          },
+          {
+            "year": 2025,
+            "total": 4000000,
+            "count": 5
+          }
+        ],
+        "topBeneficiaries": [
+          {
+            "total": 79124049.53,
+            "count": 59,
+            "name": "BANCO DO BRASIL SA",
+            "cnpj": "00000000000191",
+            "pct": 37.83,
+            "type": "intermediario"
+          },
+          {
+            "total": 23832087.89,
+            "count": 20,
+            "name": "MUNICIPIO DE EUCLIDES DA CUNHA",
+            "cnpj": "13698774000180",
+            "pct": 11.39,
+            "type": "municipio"
+          },
+          {
+            "total": 10209418.52,
+            "count": 23,
+            "name": "MUNICIPIO DE ARACI",
+            "cnpj": "14232086000192",
+            "pct": 4.88,
+            "type": "municipio"
+          },
+          {
+            "total": 8000000.0,
+            "count": 2,
+            "name": "MUNICIPIO DE CAMACARI",
+            "cnpj": "14109763000180",
+            "pct": 3.82,
+            "type": "municipio"
+          },
+          {
+            "total": 5730375.51,
+            "count": 14,
+            "name": "MUNICIPIO DE IBIPITANGA",
+            "cnpj": "13781364000106",
+            "pct": 2.74,
+            "type": "municipio",
+            "flag": "prefeito_afastado"
+          }
+        ],
+        "suspiciousEntities": [
+          {
+            "name": "BAKOF PLASTICOS LTDA EM RECUPERACAO JUDICIAL",
+            "cnpj": "91967067000155",
+            "total": 11291.0,
+            "reason": "Empresa em recuperacao judicial",
+            "flag": "recuperacao_judicial"
+          }
+        ]
+      }
+    }
+  },
+  "comparison": {
+    "paradox": {
+      "title": "O Paradoxo",
+      "description": "Elmar tem estatisticas CEAP piores que Felix, mas Felix e o alvo principal da investigacao",
+      "metrics": [
+        {
+          "metric": "CEAP HHI",
+          "elmar": 2116,
+          "felix": 1348,
+          "winner": "felix",
+          "insight": "Elmar tem concentracao 57% maior"
+        },
+        {
+          "metric": "Benford Chi2",
+          "elmar": 242.6,
+          "felix": 83.2,
+          "winner": "felix",
+          "insight": "Elmar tem desvio 3x maior"
+        },
+        {
+          "metric": "Fornecedores CEAP",
+          "elmar": 32,
+          "felix": 175,
+          "winner": "felix",
+          "insight": "Elmar tem 82% menos diversificacao"
+        },
+        {
+          "metric": "Emendas HHI",
+          "elmar": 2043,
+          "felix": 1637,
+          "winner": "felix",
+          "insight": "Elmar ligeiramente mais concentrado"
+        },
+        {
+          "metric": "BB Concentracao",
+          "elmar": 43.5,
+          "felix": 37.8,
+          "winner": "felix",
+          "unit": "%",
+          "insight": "Ambos acima de 35%"
+        }
+      ],
+      "explanation": "A investigacao nao segue estatisticas CEAP. Segue o dinheiro das emendas - 146x maior."
+    }
+  },
+  "crossReference": {
+    "sharedBeneficiaries": {
+      "count": 55,
+      "totalValue": 232816374.99,
+      "topShared": [
+        {
+          "name": "BANCO DO BRASIL SA",
+          "elmar": 85669886.43,
+          "felix": 79124049.53,
+          "total": 164793935.96
+        },
+        {
+          "name": "MUNICIPIO DE EUCLIDES DA CUNHA",
+          "elmar": 4.28,
+          "felix": 23832087.89,
+          "total": 23832092.17
+        },
+        {
+          "name": "MUNICIPIO DE CAMACARI",
+          "elmar": 2000000.0,
+          "felix": 8000000.0,
+          "total": 10000000.0
+        },
+        {
+          "name": "BAKOF PLASTICOS EM RJ",
+          "elmar": 2935105.46,
+          "felix": 11291.0,
+          "total": 2946396.46,
+          "flag": "suspicious"
+        },
+        {
+          "name": "MUNICIPIO DE MORRO DO CHAPEU",
+          "elmar": 1358396.05,
+          "felix": 1554400.0,
+          "total": 2912796.05
+        }
+      ]
+    },
+    "cnpjOverlap": {
+      "ceapEmendas": 0,
+      "insight": "Zero CNPJs aparecem em ambos CEAP e Emendas. Redes completamente separadas."
+    }
+  },
+  "investigation": {
+    "name": "Operacao Overclean",
+    "authority": "Policia Federal + CGU + Receita Federal",
+    "court": "STF",
+    "totalBlocked": 271700000,
+    "estimatedScheme": 1400000000,
+    "states": 17,
+    "timeline": [
+      {
+        "phase": 1,
+        "date": "2024-12-10",
+        "title": "Prisao do 'Rei do Lixo'",
+        "description": "Jose Marcos de Moura preso. 43 mandados de busca, 17 prisoes preventivas. R$ 861M em transacoes suspeitas identificadas.",
+        "mandados": 43,
+        "prisoes": 17,
+        "bloqueio": null,
+        "alvos": [
+          "Jose Marcos de Moura (Rei do Lixo)",
+          "Lucas Lobao (ex-DNOCS)",
+          "Francisquinho Nascimento (vereador Campo Formoso)"
+        ],
+        "municipios": [
+          "Campo Formoso"
+        ],
+        "highlight": true
+      },
+      {
+        "phase": 2,
+        "date": "2024-12-20",
+        "title": "Vice-prefeito e lobistas",
+        "description": "Dez buscas e quatro prisoes. Vice-prefeito de Lauro de Freitas e secretario de Vitoria da Conquista alvos.",
+        "mandados": 10,
+        "prisoes": 4,
+        "bloqueio": null,
+        "alvos": [
+          "Vice-prefeito de Lauro de Freitas",
+          "Secretario de Mobilidade de Vitoria da Conquista",
+          "Lobista operador"
+        ],
+        "municipios": [
+          "Lauro de Freitas",
+          "Vitoria da Conquista"
+        ],
+        "highlight": false
+      },
+      {
+        "phase": 3,
+        "date": "2025-04-03",
+        "title": "Secretario de BH afastado",
+        "description": "16 mandados de busca em Salvador, SP, BH e Aracaju. R$ 120.8K apreendidos, relogios de luxo e joias.",
+        "mandados": 16,
+        "prisoes": 0,
+        "bloqueio": null,
+        "alvos": [
+          "Bruno Barral (Secretario de Educacao de BH)"
+        ],
+        "municipios": [
+          "Salvador",
+          "Sao Paulo",
+          "Belo Horizonte",
+          "Aracaju"
+        ],
+        "apreensoes": "R$ 120.8K em especie + relogios de luxo + joias",
+        "highlight": false
+      },
+      {
+        "phase": 4,
+        "date": "2025-06-27",
+        "title": "Prefeitos afastados",
+        "description": "Dois prefeitos baianos afastados por suspeita de desvio de emendas. 16 mandados de busca, 3 afastamentos.",
+        "mandados": 16,
+        "prisoes": 0,
+        "bloqueio": null,
+        "alvos": [
+          "Humberto Raimundo (Prefeito Ibipitanga)",
+          "Alan Machado (Prefeito Boquira)"
+        ],
+        "municipios": [
+          "Ibipitanga",
+          "Boquira"
+        ],
+        "highlight": false
+      },
+      {
+        "phase": 5,
+        "date": "2025-07-17",
+        "title": "Familia de Elmar Nascimento",
+        "description": "18 buscas. Francisquinho Nascimento (primo, ex-secretario/vereador de Campo Formoso) jogou R$ 220K pela janela. R$ 10K encontrados em sapatos. R$ 85.7M bloqueados.",
+        "mandados": 18,
+        "prisoes": 0,
+        "bloqueio": 85700000,
+        "alvos": [
+          "Francisquinho Nascimento (primo, vereador - jogou dinheiro)",
+          "Elmo Nascimento (irmao, ex-prefeito)"
+        ],
+        "municipios": [
+          "Campo Formoso"
+        ],
+        "apreensoes": "R$ 10K encontrados em sapatos de Francisquinho + R$ 220K jogados da janela por Francisquinho",
+        "highlight": true
+      },
+      {
+        "phase": 6,
+        "date": "2025-10-14",
+        "title": "Deputado Dal Barreto",
+        "description": "8 mandados de busca em Salvador, Amargosa e Brasilia. Celular do deputado Dal Barreto (UNIAO) apreendido.",
+        "mandados": 8,
+        "prisoes": 0,
+        "bloqueio": null,
+        "alvos": [
+          "Dal Barreto (deputado federal UNIAO)"
+        ],
+        "municipios": [
+          "Salvador",
+          "Amargosa",
+          "Brasilia"
+        ],
+        "highlight": false
+      },
+      {
+        "phase": 7,
+        "date": "2025-10-16",
+        "title": "Agente publico afastado",
+        "description": "Medida cautelar afastando agente publico suspeito de participar do esquema.",
+        "mandados": 0,
+        "prisoes": 0,
+        "bloqueio": null,
+        "alvos": [
+          "Agente publico nao identificado"
+        ],
+        "municipios": [],
+        "highlight": false
+      },
+      {
+        "phase": 8,
+        "date": "2025-11-15",
+        "title": "Secretario do Podemos",
+        "description": "5 mandados de busca em Brasilia, SP, Palmas e Guarupi. Luiz Franca, que se intitulava secretario nacional do Podemos, e alvo.",
+        "mandados": 5,
+        "prisoes": 0,
+        "bloqueio": null,
+        "alvos": [
+          "Luiz Franca (autoproclamado secretario Podemos)"
+        ],
+        "municipios": [
+          "Brasilia",
+          "Sao Paulo",
+          "Palmas",
+          "Guarupi"
+        ],
+        "highlight": false
+      },
+      {
+        "phase": 9,
+        "date": "2026-01-13",
+        "title": "Felix Mendonca Jr. alvo principal",
+        "description": "9 mandados de busca na Bahia e DF. R$ 24M bloqueados. Deputado Felix Mendonca Jr. (PDT-BA) e o alvo principal.",
+        "mandados": 9,
+        "prisoes": 0,
+        "bloqueio": 24000000,
+        "alvos": [
+          "Felix Mendonca Junior (deputado federal PDT-BA)"
+        ],
+        "municipios": [
+          "Salvador",
+          "Brasilia"
+        ],
+        "highlight": true
+      }
+    ],
+    "keyFigures": {
+      "reiDoLixo": {
+        "name": "Jose Marcos de Moura",
+        "role": "Empresario do setor de limpeza urbana",
+        "nickname": "Rei do Lixo",
+        "suspiciousTransactions": 861000000,
+        "states": 17,
+        "status": "preso",
+        "connection": "Figura central do esquema. Opera em 17 estados via contratos de limpeza urbana."
+      }
+    },
+    "implicatedMunicipalities": [
+      {
+        "name": "Campo Formoso",
+        "connection": "Irmao de Elmar era prefeito",
+        "phase": 5,
+        "amount": 23455734.89
+      },
+      {
+        "name": "Ibipitanga",
+        "connection": "Prefeito afastado",
+        "phase": 4,
+        "amount": 5730375.51
+      },
+      {
+        "name": "Boquira",
+        "connection": "Prefeito afastado",
+        "phase": 4,
+        "amount": null
+      },
+      {
+        "name": "Lauro de Freitas",
+        "connection": "Vice-prefeito alvo",
+        "phase": 2,
+        "amount": null
+      },
+      {
+        "name": "Vitoria da Conquista",
+        "connection": "Secretario alvo",
+        "phase": 2,
+        "amount": null
+      }
+    ]
+  },
+  "keyFindings": [
+    {
+      "id": "paradox",
+      "title": "O Paradoxo",
+      "finding": "Elmar tem estatisticas CEAP PIORES, mas Felix e o alvo PRINCIPAL",
+      "explanation": "A investigacao segue as emendas (R$ 200M), nao o CEAP (R$ 1.4M).",
+      "icon": "puzzle"
+    },
+    {
+      "id": "scale",
+      "title": "A Escala: 146x",
+      "finding": "Emendas movimentam 146x mais que CEAP",
+      "explanation": "O CEAP e ruido estatistico. As emendas sao o sinal real.",
+      "icon": "scale"
+    },
+    {
+      "id": "banco-brasil",
+      "title": "Banco do Brasil: ~40%",
+      "finding": "Elmar: 43.5%. Felix: 37.8%. Via BB.",
+      "explanation": "Concentracao incomum em unico banco como intermediario. Merece investigacao.",
+      "icon": "bank"
+    },
+    {
+      "id": "campo-formoso",
+      "title": "Campo Formoso: R$ 23.5M",
+      "finding": "Elmar direcionou R$ 23.5M para municipio administrado pela familia",
+      "explanation": "Irmao Elmo era prefeito. Primo Francisquinho foi alvo da Fase 5 e jogou R$ 220K pela janela.",
+      "icon": "family"
+    },
+    {
+      "id": "empresa-rj",
+      "title": "Empresa em Recuperacao Judicial",
+      "finding": "Bakof Plasticos recebeu R$ 2.9M de Elmar",
+      "explanation": "Empresa em dificuldades financeiras recebendo milhoes em recursos publicos.",
+      "icon": "warning"
+    },
+    {
+      "id": "emendas-pix",
+      "title": "Emendas PIX: ~25-30%",
+      "finding": "Elmar: 24.2%. Felix: 29.0% em Transferencias Especiais.",
+      "explanation": "Emendas PIX vao direto para prefeituras sem necessidade de convenio - menor controle.",
+      "icon": "bolt"
+    }
+  ],
+  "emendasPix": {
+    "title": "O que sao Emendas PIX?",
+    "description": "Transferencias Especiais (EC 105/2019) que vao direto para prefeituras sem convenio. Chamadas de 'PIX' pela agilidade.",
+    "growth": {
+      "2020": 600000000,
+      "2024": 8200000000,
+      "growthPct": 1267
+    },
+    "risks": [
+      "Menor controle sobre destinacao final",
+      "Fiscalizacao dividida entre TCU e TCs locais",
+      "70% deve ir para investimentos, mas definicao e vaga",
+      "Nao precisa de projeto aprovado previamente"
+    ],
+    "deputiesData": {
+      "elmar": {
+        "total": 47570547.08,
+        "pct": 24.2
+      },
+      "felix": {
+        "total": 60662074.13,
+        "pct": 29.0
+      }
+    }
+  },
+  "methodology": {
+    "dataSources": [
+      {
+        "name": "CEAP",
+        "source": "API Dados Abertos da Camara",
+        "period": "2023-2025",
+        "type": "primary"
+      },
+      {
+        "name": "Emendas",
+        "source": "Portal da Transparencia - Favorecidos",
+        "period": "2014-2025",
+        "type": "primary"
+      },
+      {
+        "name": "Investigacao",
+        "source": "Reportagens publicas (G1, Metropoles, Folha, Agencia Brasil)",
+        "period": "2024-2026",
+        "type": "secondary"
+      }
+    ],
+    "metrics": [
+      {
+        "name": "HHI",
+        "description": "Indice Herfindahl-Hirschman para concentracao",
+        "thresholds": "<1500: baixa, 1500-2500: moderada, >2500: alta"
+      },
+      {
+        "name": "Benford",
+        "description": "Teste chi-quadrado para distribuicao de primeiro digito",
+        "thresholds": "p<0.05: significativo"
+      },
+      {
+        "name": "Cross-reference",
+        "description": "Matching por CNPJ normalizado",
+        "accuracy": "~80%"
+      }
+    ],
+    "limitations": [
+      "Dados nao mostram kickbacks ou pagamentos informais",
+      "Nao temos acesso a ownership real de empresas (laranjas)",
+      "Matching por nome tem ~80% de precisao",
+      "Dados nao provam fraude - mostram padroes que merecem investigacao",
+      "Nao sabemos o que a PF tem alem dos dados publicos"
+    ],
+    "whatDataCantShow": [
+      "Se os servicos foram efetivamente entregues",
+      "Relacoes familiares nao publicas",
+      "Comunicacoes interceptadas pela PF",
+      "Movimentacoes bancarias detalhadas"
+    ]
+  },
+  "pivot": {
+    "elmar": {
+      "summary": {
+        "total": 196931297,
+        "recordCount": 951,
+        "uniqueMunicipalities": 214,
+        "uniqueBeneficiaries": 311,
+        "avgPerRecord": 207078
+      },
+      "byMunicipality": [
+        {
+          "name": "BRASÍLIA",
+          "uf": "DF",
+          "total": 87123415.09,
+          "count": 106,
+          "flag": "intermediary"
+        },
+        {
+          "name": "CAMPO FORMOSO",
+          "uf": "BA",
+          "total": 23455734.89,
+          "count": 38,
+          "flag": "family"
+        },
+        {
+          "name": "CONCEIÇÃO DO COITÉ",
+          "uf": "BA",
+          "total": 4500000.0,
+          "count": 4,
+          "flag": null
+        },
+        {
+          "name": "BRUMADO",
+          "uf": "BA",
+          "total": 3477997.59,
+          "count": 27,
+          "flag": null
+        },
+        {
+          "name": "FILADÉLFIA",
+          "uf": "BA",
+          "total": 2995000.0,
+          "count": 8,
+          "flag": null
+        },
+        {
+          "name": "ITATIM",
+          "uf": "BA",
+          "total": 2995000.0,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "FREDERICO WESTPHALEN",
+          "uf": "RS",
+          "total": 2935105.46,
+          "count": 9,
+          "flag": null
+        },
+        {
+          "name": "FORTALEZA",
+          "uf": "CE",
+          "total": 2794422.07,
+          "count": 10,
+          "flag": null
+        },
+        {
+          "name": "SENHOR DO BONFIM",
+          "uf": "BA",
+          "total": 2596326.28,
+          "count": 7,
+          "flag": null
+        },
+        {
+          "name": "CANSANÇÃO",
+          "uf": "BA",
+          "total": 2496399.88,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "MORRO DO CHAPÉU",
+          "uf": "BA",
+          "total": 2296229.05,
+          "count": 12,
+          "flag": null
+        },
+        {
+          "name": "VITÓRIA DA CONQUISTA",
+          "uf": "BA",
+          "total": 2262117.49,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "CAMAÇARI",
+          "uf": "BA",
+          "total": 2219357.72,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "CAMPO ALEGRE DE LOURDES",
+          "uf": "BA",
+          "total": 2164021.4,
+          "count": 7,
+          "flag": null
+        },
+        {
+          "name": "BELO HORIZONTE",
+          "uf": "MG",
+          "total": 2028768.63,
+          "count": 23,
+          "flag": null
+        },
+        {
+          "name": "JOÃO DOURADO",
+          "uf": "BA",
+          "total": 1995000.0,
+          "count": 4,
+          "flag": null
+        },
+        {
+          "name": "MEDEIROS NETO",
+          "uf": "BA",
+          "total": 1990000.0,
+          "count": 2,
+          "flag": null
+        },
+        {
+          "name": "RECIFE",
+          "uf": "PE",
+          "total": 1666115.97,
+          "count": 22,
+          "flag": null
+        },
+        {
+          "name": "RIACHÃO DO JACUÍPE",
+          "uf": "BA",
+          "total": 1591397.99,
+          "count": 21,
+          "flag": null
+        },
+        {
+          "name": "VALENTE",
+          "uf": "BA",
+          "total": 1501991.73,
+          "count": 4,
+          "flag": null
+        }
+      ],
+      "byYear": [
+        {
+          "year": 2016,
+          "total": 3118064.95,
+          "count": 72
+        },
+        {
+          "year": 2017,
+          "total": 7049513.99,
+          "count": 103
+        },
+        {
+          "year": 2018,
+          "total": 17390182.87,
+          "count": 142
+        },
+        {
+          "year": 2019,
+          "total": 13616651.03,
+          "count": 131
+        },
+        {
+          "year": 2020,
+          "total": 16657280.23,
+          "count": 113
+        },
+        {
+          "year": 2021,
+          "total": 14753079.77,
+          "count": 76
+        },
+        {
+          "year": 2022,
+          "total": 21090497.83,
+          "count": 102
+        },
+        {
+          "year": 2023,
+          "total": 37966448.91,
+          "count": 73
+        },
+        {
+          "year": 2024,
+          "total": 36093570.8,
+          "count": 38
+        },
+        {
+          "year": 2025,
+          "total": 29196006.14,
+          "count": 101
+        }
+      ],
+      "byState": [
+        {
+          "uf": "BA",
+          "total": 90952420.79,
+          "count": 614
+        },
+        {
+          "uf": "DF",
+          "total": 87123415.09,
+          "count": 106
+        },
+        {
+          "uf": "RS",
+          "total": 4299999.68,
+          "count": 44
+        },
+        {
+          "uf": "CE",
+          "total": 3857126.52,
+          "count": 14
+        },
+        {
+          "uf": "PR",
+          "total": 3141447.28,
+          "count": 20
+        },
+        {
+          "uf": "MG",
+          "total": 2732421.04,
+          "count": 32
+        },
+        {
+          "uf": "PE",
+          "total": 1818572.35,
+          "count": 55
+        },
+        {
+          "uf": "GO",
+          "total": 1082020.0,
+          "count": 5
+        },
+        {
+          "uf": "RJ",
+          "total": 775579.28,
+          "count": 12
+        },
+        {
+          "uf": "SP",
+          "total": 586943.01,
+          "count": 19
+        }
+      ],
+      "byType": [
+        {
+          "type": "Banco do Brasil",
+          "total": 85671983.19,
+          "count": 58
+        },
+        {
+          "type": "Municípios",
+          "total": 77840924.84,
+          "count": 333
+        },
+        {
+          "type": "Empresas",
+          "total": 29176677.58,
+          "count": 310
+        },
+        {
+          "type": "Entidades",
+          "total": 3651687.75,
+          "count": 11
+        },
+        {
+          "type": "Outros",
+          "total": 369650.16,
+          "count": 238
+        },
+        {
+          "type": "Fundos Públicos",
+          "total": 220373,
+          "count": 1
+        }
+      ],
+      "byModalidade": [
+        {
+          "type": "Transferências Especiais (PIX)",
+          "total": 47570547,
+          "count": 50,
+          "highlight": true
+        },
+        {
+          "type": "Convênios e Outros",
+          "total": 149360749,
+          "count": 901,
+          "highlight": false
+        }
+      ]
+    },
+    "felix": {
+      "summary": {
+        "total": 209160987,
+        "recordCount": 598,
+        "uniqueMunicipalities": 119,
+        "uniqueBeneficiaries": 212,
+        "avgPerRecord": 349768
+      },
+      "byMunicipality": [
+        {
+          "name": "BRASÍLIA",
+          "uf": "DF",
+          "total": 80433500.91,
+          "count": 103,
+          "flag": "intermediary"
+        },
+        {
+          "name": "EUCLIDES DA CUNHA",
+          "uf": "BA",
+          "total": 28330807.89,
+          "count": 31,
+          "flag": null
+        },
+        {
+          "name": "ARACI",
+          "uf": "BA",
+          "total": 12407333.52,
+          "count": 28,
+          "flag": null
+        },
+        {
+          "name": "CAMAÇARI",
+          "uf": "BA",
+          "total": 8033597.21,
+          "count": 4,
+          "flag": null
+        },
+        {
+          "name": "SANTO ANTÔNIO DE JESUS",
+          "uf": "BA",
+          "total": 6795114.7,
+          "count": 14,
+          "flag": null
+        },
+        {
+          "name": "IBIPITANGA",
+          "uf": "BA",
+          "total": 6730375.51,
+          "count": 15,
+          "flag": "investigation"
+        },
+        {
+          "name": "UIBAÍ",
+          "uf": "BA",
+          "total": 3431851.39,
+          "count": 20,
+          "flag": null
+        },
+        {
+          "name": "GENTIO DO OURO",
+          "uf": "BA",
+          "total": 3321812.29,
+          "count": 11,
+          "flag": null
+        },
+        {
+          "name": "PIATÃ",
+          "uf": "BA",
+          "total": 3030411.95,
+          "count": 18,
+          "flag": null
+        },
+        {
+          "name": "TEOLÂNDIA",
+          "uf": "BA",
+          "total": 2893699.01,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "BARRA DO ROCHA",
+          "uf": "BA",
+          "total": 2837600.0,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "BARRA DO CHOÇA",
+          "uf": "BA",
+          "total": 2676792.0,
+          "count": 5,
+          "flag": null
+        },
+        {
+          "name": "MORRO DO CHAPÉU",
+          "uf": "BA",
+          "total": 2554400.0,
+          "count": 4,
+          "flag": null
+        },
+        {
+          "name": "BOQUIRA",
+          "uf": "BA",
+          "total": 2478111.09,
+          "count": 4,
+          "flag": "investigation"
+        },
+        {
+          "name": "ITAPETINGA",
+          "uf": "BA",
+          "total": 2337300.0,
+          "count": 6,
+          "flag": null
+        },
+        {
+          "name": "ÉRICO CARDOSO",
+          "uf": "BA",
+          "total": 2293974.0,
+          "count": 6,
+          "flag": null
+        },
+        {
+          "name": "PEDRÃO",
+          "uf": "BA",
+          "total": 2074243.0,
+          "count": 3,
+          "flag": null
+        },
+        {
+          "name": "TERRA NOVA",
+          "uf": "BA",
+          "total": 2041334.86,
+          "count": 7,
+          "flag": null
+        },
+        {
+          "name": "CAETITÉ",
+          "uf": "BA",
+          "total": 1990000.0,
+          "count": 3,
+          "flag": null
+        },
+        {
+          "name": "SANTA CRUZ CABRÁLIA",
+          "uf": "BA",
+          "total": 1760001.0,
+          "count": 3,
+          "flag": null
+        }
+      ],
+      "byYear": [
+        {
+          "year": 2016,
+          "total": 6658616.41,
+          "count": 29
+        },
+        {
+          "year": 2017,
+          "total": 8127549.06,
+          "count": 61
+        },
+        {
+          "year": 2018,
+          "total": 13939368.11,
+          "count": 54
+        },
+        {
+          "year": 2019,
+          "total": 11924112.35,
+          "count": 62
+        },
+        {
+          "year": 2020,
+          "total": 14546736.61,
+          "count": 72
+        },
+        {
+          "year": 2021,
+          "total": 25842283.93,
+          "count": 35
+        },
+        {
+          "year": 2022,
+          "total": 18047565.05,
+          "count": 26
+        },
+        {
+          "year": 2023,
+          "total": 36235025.62,
+          "count": 75
+        },
+        {
+          "year": 2024,
+          "total": 38684003.98,
+          "count": 104
+        },
+        {
+          "year": 2025,
+          "total": 35014048.86,
+          "count": 79
+        },
+        {
+          "year": 2026,
+          "total": 141676.92,
+          "count": 1
+        }
+      ],
+      "byState": [
+        {
+          "uf": "BA",
+          "total": 123466376.49,
+          "count": 352
+        },
+        {
+          "uf": "DF",
+          "total": 80433500.91,
+          "count": 103
+        },
+        {
+          "uf": "SP",
+          "total": 1871655.98,
+          "count": 30
+        },
+        {
+          "uf": "PR",
+          "total": 1405513.92,
+          "count": 7
+        },
+        {
+          "uf": "MG",
+          "total": 503735.43,
+          "count": 18
+        },
+        {
+          "uf": "PE",
+          "total": 381713.55,
+          "count": 20
+        },
+        {
+          "uf": "RS",
+          "total": 312418.9,
+          "count": 14
+        },
+        {
+          "uf": "ES",
+          "total": 278925.22,
+          "count": 14
+        },
+        {
+          "uf": "SC",
+          "total": 189746.3,
+          "count": 10
+        },
+        {
+          "uf": "AM",
+          "total": 102528.95,
+          "count": 7
+        }
+      ],
+      "byType": [
+        {
+          "type": "Municípios",
+          "total": 121783214.28,
+          "count": 315
+        },
+        {
+          "type": "Banco do Brasil",
+          "total": 79124049.53,
+          "count": 59
+        },
+        {
+          "type": "Empresas",
+          "total": 7281161.3,
+          "count": 193
+        },
+        {
+          "type": "Entidades",
+          "total": 650000.0,
+          "count": 2
+        },
+        {
+          "type": "Outros",
+          "total": 322562,
+          "count": 29
+        }
+      ],
+      "byModalidade": [
+        {
+          "type": "Transferências Especiais (PIX)",
+          "total": 60662074,
+          "count": 62,
+          "highlight": true
+        },
+        {
+          "type": "Convênios e Outros",
+          "total": 148498913,
+          "count": 536,
+          "highlight": false
+        }
+      ]
+    },
+    "comparison": {
+      "municipalReach": {
+        "elmar": 214,
+        "felix": 119,
+        "insight": "Elmar tem alcance mais amplo, Félix mais concentrado"
+      },
+      "avgEmendaSize": {
+        "elmar": 207078.12,
+        "felix": 349767.54,
+        "insight": "Emendas de Félix são maiores na média"
+      },
+      "keyMunicipalities": [
+        {
+          "name": "Campo Formoso",
+          "elmar": 23455734.89,
+          "felix": 0,
+          "flag": "family",
+          "note": "Irmão de Elmar era prefeito. Alvo da Fase 5."
+        },
+        {
+          "name": "Euclides da Cunha",
+          "elmar": 0,
+          "felix": 28330807.89,
+          "flag": "electoral_base",
+          "note": "Principal base eleitoral de Félix"
+        },
+        {
+          "name": "Ibipitanga",
+          "elmar": 0,
+          "felix": 6730375.51,
+          "flag": "investigation",
+          "note": "Prefeito afastado na Fase 4"
+        },
+        {
+          "name": "Brasília (BB)",
+          "elmar": 87123415.09,
+          "felix": 80433500.91,
+          "flag": "intermediary",
+          "note": "Banco do Brasil como intermediário"
+        }
+      ]
+    }
+  }
+}

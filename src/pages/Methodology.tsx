@@ -20,7 +20,7 @@ export function Methodology() {
   const [methodologyOpen, setMethodologyOpen] = useState(false);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pt-4">
       <Header
         title="Comece Aqui"
         subtitle="Seu guia para entender os gastos parlamentares"

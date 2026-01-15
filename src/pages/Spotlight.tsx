@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import { useFilteredDeputies } from '../hooks/useDeputies';
 import { useMismatches } from '../hooks/useFraudFlags';
 import { formatReais, formatPercent } from '../utils/formatters';
@@ -8,12 +8,21 @@ import { TransactionExplorer } from '../components/charts/TransactionExplorer';
 import { SupplierAnalysis } from '../components/charts/SupplierAnalysis';
 import { TemporalDeepDive } from '../components/charts/TemporalDeepDive';
 import { SpotlightExport } from '../components/ui/SpotlightExport';
+import { ShareButton } from '../components/ui/ShareButton';
 import { SpotlightDebate } from '../components/spotlight/SpotlightDebate';
 import { SpotlightTimeline } from '../components/spotlight/SpotlightTimeline';
 import { SpotlightBenford } from '../components/spotlight/SpotlightBenford';
 import { SpotlightTransactions } from '../components/spotlight/SpotlightTransactions';
 import { SpotlightComparison } from '../components/spotlight/SpotlightComparison';
 import { SpotlightCategories } from '../components/spotlight/SpotlightCategories';
+import { SpotlightScaleComparison } from '../components/spotlight/SpotlightScaleComparison';
+import { SpotlightInvestigationTimeline } from '../components/spotlight/SpotlightInvestigationTimeline';
+import { SpotlightKeyFindings } from '../components/spotlight/SpotlightKeyFindings';
+import { SpotlightDeputyComparison } from '../components/spotlight/SpotlightDeputyComparison';
+import { SpotlightEmendasPix } from '../components/spotlight/SpotlightEmendasPix';
+import { SpotlightBancoBrasil } from '../components/spotlight/SpotlightBancoBrasil';
+import { SpotlightNarrativeHook } from '../components/spotlight/SpotlightNarrativeHook';
+import { SpotlightEmendasPivot } from '../components/spotlight/SpotlightEmendasPivot';
 import { ChartSkeleton, Skeleton, StatCardSkeleton } from '../components/ui/Skeleton';
 import type { Deputy } from '../types/data';
 
@@ -31,16 +40,38 @@ function findDeputyById(deputies: Deputy[], id?: number): Deputy | undefined {
   return deputies.find(d => d.id === id);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type OvercleanData = any; // Type for the external JSON data
+
 export function Spotlight() {
   const { slug } = useParams<{ slug: string }>();
   const { data: allDeputies = [], isLoading: deputiesLoading } = useFilteredDeputies();
   const { data: mismatches = [], isLoading: mismatchesLoading } = useMismatches();
+  const [overcleanData, setOvercleanData] = useState<OvercleanData | null>(null);
+  const [overcleanLoading, setOvercleanLoading] = useState(false);
   const isLoading = deputiesLoading || mismatchesLoading;
 
   // Ref for export functionality - must be declared before any conditional returns
   const contentRef = useRef<HTMLDivElement>(null);
 
   const content = slug ? SPOTLIGHT_CONTENT[slug] : undefined;
+
+  // Fetch external data for Overclean spotlight
+  useEffect(() => {
+    if (slug === 'operacao-overclean' && content?.enrichedData?.externalDataUrl) {
+      setOvercleanLoading(true);
+      fetch(content.enrichedData.externalDataUrl)
+        .then(res => res.json())
+        .then(data => {
+          setOvercleanData(data);
+          setOvercleanLoading(false);
+        })
+        .catch(err => {
+          console.error('Failed to load Overclean data:', err);
+          setOvercleanLoading(false);
+        });
+    }
+  }, [slug, content?.enrichedData?.externalDataUrl]);
 
   const deputy = useMemo(() => {
     if (!content?.deputyId) return undefined;
@@ -210,20 +241,18 @@ export function Spotlight() {
             </div>
             <p className="text-lg text-text-secondary mt-1">{content.subtitle}</p>
           </div>
-          {deputy && (
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <ShareButton
+              title={content.title}
+              subtitle={content.subtitle}
+            />
+            {deputy && (
               <SpotlightExport
                 deputy={deputy}
                 spotlightTitle={content.title}
               />
-              <Link
-                to={`/deputados/${deputy.id}`}
-                className="px-4 py-2 bg-bg-secondary text-text-secondary rounded-lg hover:bg-bg-card hover:text-text-primary transition text-sm"
-              >
-                Ver Perfil Completo
-              </Link>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <p className="mt-4 text-text-secondary leading-relaxed">{content.summary}</p>
 
@@ -278,7 +307,7 @@ export function Spotlight() {
                 avgValue={averages.spending}
               />
               <MetricComparison
-                label="Transacoes"
+                label="Transações"
                 deputyValue={deputy.transactionCount}
                 avgValue={averages.transactions}
                 format="number"
@@ -350,7 +379,7 @@ export function Spotlight() {
               </>
             )}
 
-            {/* Enriched data for debate spotlights */}
+            {/* Enriched data for debate spotlights with deputy data */}
             {content.category === 'debate' && content.enrichedData && (
               <>
                 {/* Timeline */}
@@ -358,32 +387,34 @@ export function Spotlight() {
                   <SpotlightTimeline events={content.enrichedData.timeline} />
                 )}
 
-                {/* Two column layout for Benford and Categories */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Benford Analysis */}
-                  {content.enrichedData.benfordDigits && (
-                    <SpotlightBenford
-                      digits={content.enrichedData.benfordDigits}
-                      chi2={deputy.benford.chi2}
-                      pValue={deputy.benford.pValue}
-                      significant={deputy.benford.significant}
-                    />
-                  )}
+                {/* Two column layout for Benford and Categories - only if deputy exists */}
+                {deputy && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Benford Analysis */}
+                    {content.enrichedData.benfordDigits && (
+                      <SpotlightBenford
+                        digits={content.enrichedData.benfordDigits}
+                        chi2={deputy.benford.chi2}
+                        pValue={deputy.benford.pValue}
+                        significant={deputy.benford.significant}
+                      />
+                    )}
 
-                  {/* Category breakdown */}
-                  {deputy.byCategory && (
-                    <SpotlightCategories
-                      categories={deputy.byCategory.map(c => ({
-                        category: c.category,
-                        value: c.value,
-                        pct: c.pct,
-                        highlight: c.category.toLowerCase().includes('veículo') ||
-                                  c.category.toLowerCase().includes('locação'),
-                      }))}
-                      total={deputy.totalSpending}
-                    />
-                  )}
-                </div>
+                    {/* Category breakdown */}
+                    {deputy.byCategory && (
+                      <SpotlightCategories
+                        categories={deputy.byCategory.map(c => ({
+                          category: c.category,
+                          value: c.value,
+                          pct: c.pct,
+                          highlight: c.category.toLowerCase().includes('veículo') ||
+                                    c.category.toLowerCase().includes('locação'),
+                        }))}
+                        total={deputy.totalSpending}
+                      />
+                    )}
+                  </div>
+                )}
 
                 {/* Key transactions */}
                 {content.enrichedData.transactionGroups && (
@@ -394,9 +425,108 @@ export function Spotlight() {
                   />
                 )}
 
-                {/* Comparative ranking */}
-                <SpotlightComparison deputy={deputy} allDeputies={allDeputies} />
+                {/* Comparative ranking - only if deputy exists */}
+                {deputy && (
+                  <SpotlightComparison deputy={deputy} allDeputies={allDeputies} />
+                )}
               </>
+            )}
+          </div>
+        )}
+
+        {/* Enriched data for OPERACAO OVERCLEAN - Full deep-dive */}
+        {slug === 'operacao-overclean' && overcleanData && !overcleanLoading && (
+          <div className="space-y-8">
+            {/* Section 1: The Hook - Dramatic narrative intro */}
+            {overcleanData.narrative && (
+              <SpotlightNarrativeHook
+                hook={overcleanData.narrative.hook}
+                insight={overcleanData.narrative.insight}
+                stats={{
+                  totalEmendas: overcleanData.scale?.emendasTotal || 406092283,
+                  totalBlocked: overcleanData.investigation?.totalBlocked || 271700000,
+                  phases: overcleanData.investigation?.timeline?.length || 9,
+                  deputies: 2,
+                }}
+              />
+            )}
+
+            {/* Section 2: Scale Comparison - CEAP vs Emendas */}
+            {overcleanData.scale && (
+              <SpotlightScaleComparison data={overcleanData.scale} />
+            )}
+
+            {/* Section 3: Key Findings */}
+            {overcleanData.keyFindings && (
+              <SpotlightKeyFindings findings={overcleanData.keyFindings} />
+            )}
+
+            {/* Section 4: The Paradox - Deputy Comparison */}
+            {overcleanData.deputies && overcleanData.comparison?.paradox && (
+              <SpotlightDeputyComparison
+                elmar={overcleanData.deputies.elmar}
+                felix={overcleanData.deputies.felix}
+                paradoxMetrics={overcleanData.comparison.paradox.metrics}
+                explanation={overcleanData.comparison.paradox.explanation}
+              />
+            )}
+
+            {/* Section 5: Investigation Timeline - All 9 phases */}
+            {overcleanData.investigation?.timeline && (
+              <SpotlightInvestigationTimeline
+                phases={overcleanData.investigation.timeline}
+                totalBlocked={overcleanData.investigation.totalBlocked}
+                states={overcleanData.investigation.states}
+              />
+            )}
+
+            {/* Section 6: Banco do Brasil Concentration */}
+            {overcleanData.deputies && (
+              <SpotlightBancoBrasil
+                data={{
+                  elmar: overcleanData.deputies.elmar.emendas.bancoBrasil,
+                  felix: overcleanData.deputies.felix.emendas.bancoBrasil,
+                }}
+              />
+            )}
+
+            {/* Section 7: Emendas PIX Explanation */}
+            {overcleanData.emendasPix && (
+              <SpotlightEmendasPix data={overcleanData.emendasPix} />
+            )}
+
+            {/* Section 8: Emendas Pivot Table - Deep dive */}
+            {overcleanData.pivot && (
+              <SpotlightEmendasPivot pivot={overcleanData.pivot} />
+            )}
+          </div>
+        )}
+
+        {/* Loading state for Overclean */}
+        {slug === 'operacao-overclean' && overcleanLoading && (
+          <div className="space-y-6">
+            <ChartSkeleton type="bar" height={200} />
+            <StatCardSkeleton count={4} />
+            <ChartSkeleton type="line" height={300} />
+          </div>
+        )}
+
+        {/* Enriched data for OTHER debate spotlights WITHOUT deputy */}
+        {!deputy && content.category === 'debate' && slug !== 'operacao-overclean' && content.enrichedData && (
+          <div className="space-y-6">
+            {/* Timeline */}
+            {content.enrichedData.timeline && (
+              <SpotlightTimeline events={content.enrichedData.timeline} />
+            )}
+
+            {/* Period summary */}
+            {content.enrichedData.periodTotal && (
+              <div className="bg-bg-secondary rounded-lg p-4">
+                <p className="text-sm text-text-muted">{content.enrichedData.periodLabel}</p>
+                <p className="text-2xl font-bold text-text-primary mt-1">
+                  {formatReais(content.enrichedData.periodTotal)}
+                </p>
+              </div>
             )}
           </div>
         )}
@@ -424,7 +554,7 @@ export function Spotlight() {
                       <p className="text-sm font-bold text-text-primary">
                         {formatReais(m.totalValue)}
                       </p>
-                      <p className="text-xs text-text-muted">{m.transactionCount} transacoes</p>
+                      <p className="text-xs text-text-muted">{m.transactionCount} transações</p>
                     </div>
                   </div>
                 </div>
@@ -483,7 +613,7 @@ export function Spotlight() {
             <p className="text-text-secondary max-w-md mx-auto">
               A analise de gastos por dia da semana ainda esta sendo processada.
               Esta funcionalidade estara disponivel em breve com dados reais
-              extraidos das transacoes.
+              extraídos das transações.
             </p>
             <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 bg-accent-amber/20 text-accent-amber rounded-full text-sm">
               <span className="w-2 h-2 rounded-full bg-accent-amber animate-pulse" />
@@ -526,7 +656,7 @@ export function Spotlight() {
             </ul>
           </div>
           <div>
-            <h3 className="font-medium text-accent-amber mb-2">Limitacoes</h3>
+            <h3 className="font-medium text-accent-amber mb-2">Limitações</h3>
             <ul className="list-disc list-inside space-y-1">
               {content.methodology.limitations.map((l, i) => (
                 <li key={i} className="text-sm text-text-muted">
@@ -569,10 +699,10 @@ export function Spotlight() {
       {/* Disclaimer */}
       <aside className="bg-bg-card border border-border rounded-lg p-4 text-sm">
         <p className="text-text-muted">
-          <span className="font-medium text-text-secondary">Nota:</span> Esta analise utiliza dados
-          publicos do Portal de Dados Abertos da Camara dos Deputados. Os padroes identificados nao
-          constituem prova de irregularidades e servem apenas para fins de transparencia e
-          acompanhamento cidadao. Para denuncias formais, utilize os canais oficiais de controle.
+          <span className="font-medium text-text-secondary">Nota:</span> Esta análise utiliza dados
+          públicos do Portal de Dados Abertos da Câmara dos Deputados. Os padrões identificados não
+          constituem prova de irregularidades e servem apenas para fins de transparência e
+          acompanhamento cidadão. Para denúncias formais, utilize os canais oficiais de controle.
         </p>
       </aside>
     </div>

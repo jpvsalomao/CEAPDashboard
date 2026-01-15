@@ -42,7 +42,8 @@ function calculateRiskMetrics(deputy: Deputy): RiskMetrics {
   const roundNumbers = deputy.roundValuePct ?? (10 + (random(2) - 0.3) * 30);
 
   // Velocity score (high tx count + high values = risky)
-  const txPerMonth = deputy.transactionCount / 24;
+  const monthCount = deputy.byMonth?.length || 36; // Use actual months from data
+  const txPerMonth = deputy.transactionCount / monthCount;
   const avgTicket = deputy.totalSpending / deputy.transactionCount;
   const velocity = Math.min(100, (txPerMonth / 100) * (avgTicket / 5000) * 50);
 

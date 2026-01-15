@@ -3,9 +3,13 @@
 /**
  * Format number as Brazilian Reais (R$)
  * @param value - Number to format
- * @param compact - Use compact notation (M, k)
+ * @param options - compact: Use compact notation (M, k), noCents: Remove decimal places
  */
-export function formatReais(value: number, compact = false): string {
+export function formatReais(value: number, options: boolean | { compact?: boolean; noCents?: boolean } = false): string {
+  // Handle legacy boolean parameter for backward compatibility
+  const opts = typeof options === 'boolean' ? { compact: options } : options;
+  const { compact = false, noCents = false } = opts;
+
   if (compact) {
     if (Math.abs(value) >= 1_000_000_000) {
       return `R$ ${(value / 1_000_000_000).toFixed(1)}B`;
@@ -22,6 +26,8 @@ export function formatReais(value: number, compact = false): string {
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
+    minimumFractionDigits: noCents ? 0 : 2,
+    maximumFractionDigits: noCents ? 0 : 2,
   }).format(value);
 }
 

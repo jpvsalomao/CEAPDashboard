@@ -78,7 +78,7 @@ function KeyboardShortcutsProvider({ children }: { children: React.ReactNode }) 
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider>
+      <ThemeProvider defaultMode="light">
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <KeyboardShortcutsProvider>

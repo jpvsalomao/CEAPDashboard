@@ -5,6 +5,7 @@ import { DeputyVoteCard } from '../components/voting/DeputyVoteCard';
 import { SearchModal } from '../components/search/SearchModal';
 import { useCurrentMandatoDeputies } from '../hooks/useDeputies';
 import { useAuth, useHasVotedThisWeek } from '../hooks/useVoting';
+import { MAX_SELECTIONS } from '../types/voting';
 import { isSupabaseConfigured } from '../lib/supabase';
 import type { Deputy } from '../types/data';
 
@@ -13,7 +14,7 @@ export function Voting() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { data: deputies = [], isLoading } = useCurrentMandatoDeputies();
   const { isAuthenticated, signOut, user } = useAuth();
-  const { hasVoted, currentVote, refetch: refetchVoteStatus } = useHasVotedThisWeek();
+  const { hasVoted, currentVotes, voteCount, canVote, refetch: refetchVoteStatus } = useHasVotedThisWeek();
 
   const handleSelectDeputy = (deputy: Deputy) => {
     setSelectedDeputy(deputy);
@@ -61,20 +62,35 @@ export function Voting() {
 
       {/* Intro section */}
       <div className="glass-card p-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div className="space-y-2">
             <p className="text-text-secondary">
               Ajude a decidir qual deputado merece uma investigação detalhada.
-              <span className="hidden sm:inline"> Cada pessoa pode votar uma vez por semana.</span>
+              <span className="hidden sm:inline"> Cada pessoa pode votar em até {MAX_SELECTIONS} deputados por semana.</span>
             </p>
-            {hasVoted && currentVote && (
-              <p className="text-sm text-accent-teal mt-2">
-                Você votou em <span className="font-medium">{currentVote.deputyName}</span> esta semana.
-              </p>
+            {hasVoted && currentVotes.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm text-accent-teal font-medium">
+                  {voteCount}/{MAX_SELECTIONS} votos:
+                </span>
+                {currentVotes.map((vote) => (
+                  <span
+                    key={vote.deputyId}
+                    className="px-2 py-1 bg-accent-teal/10 text-accent-teal text-xs rounded"
+                  >
+                    {vote.deputyName}
+                  </span>
+                ))}
+                {canVote && (
+                  <span className="text-xs text-text-muted">
+                    + {MAX_SELECTIONS - voteCount} restante{MAX_SELECTIONS - voteCount > 1 ? 's' : ''}
+                  </span>
+                )}
+              </div>
             )}
           </div>
           {isAuthenticated && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 shrink-0">
               <span className="text-xs text-text-muted hidden sm:inline">
                 {user?.email}
               </span>

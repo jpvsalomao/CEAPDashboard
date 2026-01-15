@@ -26,7 +26,7 @@ export function DataModel() {
   const exampleDeputy = sampleDeputies[selectedDeputy] || deputies[0];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pt-4">
       <Header
         title="Modelo de Dados"
         subtitle="A arquitetura por tras da analise de gastos parlamentares"

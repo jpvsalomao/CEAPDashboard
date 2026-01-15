@@ -59,7 +59,7 @@ export function SpotlightCategories({ categories, total }: SpotlightCategoriesPr
           </p>
         </div>
         <div className="text-right">
-          <p className="text-lg font-bold text-text-primary">{formatReais(total)}</p>
+          <p className="text-lg font-bold text-text-primary">{formatReais(total, { noCents: true })}</p>
           <p className="text-xs text-text-muted">Total</p>
         </div>
       </div>
@@ -99,7 +99,7 @@ export function SpotlightCategories({ categories, total }: SpotlightCategoriesPr
                   />
                 </div>
                 <span className="text-xs text-text-secondary w-24 text-right shrink-0">
-                  {formatReais(cat.value)}
+                  {formatReais(cat.value, { noCents: true })}
                 </span>
               </div>
             </div>
@@ -124,7 +124,8 @@ export function SpotlightCategories({ categories, total }: SpotlightCategoriesPr
                     c.category.toLowerCase().includes('locação') ||
                     c.category.toLowerCase().includes('combustí')
                   )
-                  .reduce((s, c) => s + c.value, 0)
+                  .reduce((s, c) => s + c.value, 0),
+                { noCents: true }
               )}
             </strong>{' '}
             ({formatPercent(

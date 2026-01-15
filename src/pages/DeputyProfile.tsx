@@ -97,6 +97,9 @@ export function DeputyProfile() {
 
   const avgTicket = deputy.totalSpending / deputy.transactionCount;
 
+  // Calculate actual number of months from deputy's monthly data
+  const monthCount = deputy.byMonth?.length || 36; // Fallback to 36 months (2023-2025)
+
   return (
     <div className="space-y-6">
       {/* Breadcrumb */}
@@ -540,25 +543,25 @@ export function DeputyProfile() {
               {formatReais(avgTicket, true)}
             </p>
             <p className="text-xs text-text-secondary mt-1">
-              por transacao
+              por transação
             </p>
           </div>
           <div className="bg-bg-secondary p-4 rounded-lg">
-            <p className="text-xs text-text-muted uppercase mb-1">Transacoes/Mes</p>
+            <p className="text-xs text-text-muted uppercase mb-1">Transações/Mês</p>
             <p className="text-xl font-bold text-accent-teal font-mono">
-              {(deputy.transactionCount / 24).toFixed(1)}
+              {(deputy.transactionCount / monthCount).toFixed(1)}
             </p>
             <p className="text-xs text-text-secondary mt-1">
-              em media (24 meses)
+              em média ({monthCount} meses)
             </p>
           </div>
           <div className="bg-bg-secondary p-4 rounded-lg">
-            <p className="text-xs text-text-muted uppercase mb-1">Gasto/Mes</p>
+            <p className="text-xs text-text-muted uppercase mb-1">Gasto/Mês</p>
             <p className="text-xl font-bold text-accent-amber font-mono">
-              {formatReais(deputy.totalSpending / 24, true)}
+              {formatReais(deputy.totalSpending / monthCount, true)}
             </p>
             <p className="text-xs text-text-secondary mt-1">
-              em media (24 meses)
+              em média ({monthCount} meses)
             </p>
           </div>
           <div className="bg-bg-secondary p-4 rounded-lg">
@@ -580,9 +583,9 @@ export function DeputyProfile() {
             Nota sobre os Dados
           </h2>
           <p className="text-sm text-text-secondary">
-            {deputy.roundValuePct.toFixed(1)}% das transacoes deste deputado possuem valores redondos
-            (terminados em .00). A media geral e de aproximadamente 17%.
-            Isso pode ter diversas explicacoes, incluindo arredondamentos por conveniencia ou
+            {deputy.roundValuePct.toFixed(1)}% das transações deste deputado possuem valores redondos
+            (terminados em .00). A média geral é de aproximadamente 17%.
+            Isso pode ter diversas explicações, incluindo arredondamentos por conveniência ou
             valores padronizados de contratos.
           </p>
         </div>
@@ -591,22 +594,22 @@ export function DeputyProfile() {
       {/* Section 15: About This Analysis */}
       <div className="glass-card p-6 bg-bg-secondary/50">
         <h2 className="text-lg font-semibold text-text-primary mb-4">
-          Sobre Esta Analise
+          Sobre Esta Análise
         </h2>
         <div className="prose prose-sm prose-invert max-w-none">
           <p className="text-text-secondary">
-            Os dados apresentados sao provenientes da API de Dados Abertos da Câmara dos Deputados
-            e referem-se a Cota para Exercicio da Atividade Parlamentar (CEAP).
+            Os dados apresentados são provenientes da API de Dados Abertos da Câmara dos Deputados
+            e referem-se à Cota para Exercício da Atividade Parlamentar (CEAP).
           </p>
           <p className="text-text-secondary mt-2">
-            <strong className="text-text-primary">O que e a CEAP?</strong> E uma cota mensal
-            destinada a custear despesas tipicas do exercicio do mandato parlamentar,
-            como passagens, hospedagem, alimentacao, combustivel, e divulgacao.
+            <strong className="text-text-primary">O que é a CEAP?</strong> É uma cota mensal
+            destinada a custear despesas típicas do exercício do mandato parlamentar,
+            como passagens, hospedagem, alimentação, combustível, e divulgação.
           </p>
           <p className="text-text-secondary mt-2">
-            <strong className="text-text-primary">Limitacoes:</strong> Esta analise e puramente
-            descritiva. Valores altos ou padroes atipicos nao indicam necessariamente irregularidades.
-            Cada deputado tem necessidades diferentes baseadas em sua atuacao, distancia do estado
+            <strong className="text-text-primary">Limitações:</strong> Esta análise é puramente
+            descritiva. Valores altos ou padrões atípicos não indicam necessariamente irregularidades.
+            Cada deputado tem necessidades diferentes baseadas em sua atuação, distância do estado
             de origem, e atividades parlamentares.
           </p>
         </div>

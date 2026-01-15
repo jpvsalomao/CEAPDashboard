@@ -83,7 +83,7 @@ export function SpotlightComparison({ deputy, allDeputies }: SpotlightComparison
   const formatValue = (value: number, format: string) => {
     switch (format) {
       case 'currency':
-        return formatReais(value);
+        return formatReais(value, { noCents: true });
       case 'percent':
         return formatPercent(value);
       default:
@@ -178,7 +178,7 @@ export function SpotlightComparison({ deputy, allDeputies }: SpotlightComparison
           <div className="flex justify-between">
             <span className="text-text-muted">Gasto médio por deputado:</span>
             <span className="text-text-primary font-medium">
-              {formatReais(validDeputies.reduce((s, d) => s + d.totalSpending, 0) / total)}
+              {formatReais(validDeputies.reduce((s, d) => s + d.totalSpending, 0) / total, { noCents: true })}
             </span>
           </div>
         </div>

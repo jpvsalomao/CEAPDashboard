@@ -53,6 +53,8 @@ export interface SpotlightEnrichedData {
   transactionGroups?: TransactionGroupData[];
   periodLabel?: string;
   periodTotal?: number;
+  // For investigation deep-dives like Overclean
+  externalDataUrl?: string;
 }
 
 export interface SpotlightContent {
@@ -63,6 +65,7 @@ export interface SpotlightContent {
   icon: string;
   category: 'case-study' | 'analysis' | 'methodology' | 'debate';
   dataAvailable: boolean;
+  addedDate: string; // Format: "YYYY-MM" e.g., "2026-01"
   deputyId?: number;
   externalContext: {
     title: string;
@@ -82,6 +85,120 @@ export interface SpotlightContent {
 
 export const SPOTLIGHT_CONTENT: Record<string, SpotlightContent> = {
   // DEBATE CASES - News-driven investigations
+  'operacao-overclean': {
+    slug: 'operacao-overclean',
+    title: 'Operação Overclean',
+    subtitle: 'R$ 220 mil voando pela janela, o "Rei do Lixo" e a trilha de R$ 406 milhões',
+    summary: 'Julho de 2025. Campo Formoso, Bahia. Enquanto agentes da PF batem na porta, R$ 220 mil em dinheiro vivo são jogados pela janela. O dono da casa? Francisquinho Nascimento, primo de um deputado federal. A origem do dinheiro? Possivelmente, os R$ 23 milhões em emendas que o deputado enviou para o município. Esta é a história de como seguimos o dinheiro — R$ 406 milhões em emendas de dois deputados baianos — e o que descobrimos cruzando dados públicos.',
+    icon: '\u{1F50D}',
+    category: 'debate',
+    dataAvailable: true,
+    addedDate: '2026-01',
+    externalContext: {
+      title: 'Os Personagens',
+      items: [
+        {
+          label: 'O "Rei do Lixo"',
+          description: 'José Marcos de Moura controla empresas de limpeza urbana em 17 estados. Preso em dezembro de 2024, é apontado como o operador de um esquema de R$ 1,4 bilhão. Suas empresas recebiam contratos de prefeituras que, por sua vez, recebiam emendas de deputados aliados.',
+          link: 'https://www.metropoles.com/brasil/quem-e-o-rei-do-lixo-da-bahia-empresario-influente-preso-pela-pf',
+        },
+        {
+          label: 'Elmar Nascimento (União Brasil)',
+          description: 'Deputado federal pela Bahia. R$ 197 milhões em emendas entre 2014-2025. Seu irmão Elmo era prefeito de Campo Formoso, que recebeu R$ 23,5M em emendas de Elmar. Na Fase 5, a PF foi à casa do primo Francisquinho. Foi quando os R$ 220 mil voaram pela janela.',
+        },
+        {
+          label: 'Félix Mendonça Jr. (PDT)',
+          description: 'Deputado federal pela Bahia. R$ 209 milhões em emendas. Apesar de ter estatísticas de gabinete "melhores" que Elmar, tornou-se o alvo principal da Fase 9 (janeiro de 2026). R$ 24 milhões bloqueados. Por que ele e não Elmar? É uma das perguntas que os dados ajudam a responder.',
+        },
+        {
+          label: 'O Banco do Brasil',
+          description: 'O que Elmar e Félix têm em comum? Ambos canalizaram cerca de 40% de suas emendas através do Banco do Brasil. Juntos, R$ 164 milhões passaram pelo mesmo intermediário. Coincidência ou padrão?',
+        },
+      ],
+    },
+    debate: {
+      promotor: {
+        title: 'A Tese da Acusação',
+        centralArgument: 'Excelências, os dados falam por si. Estamos diante de um padrão sistemático que transcende a coincidência. Quando dois deputados da mesma região canalizam 40% de centenas de milhões de reais através do mesmo banco, direcionam recursos para municípios de familiares e compartilham 55 beneficiários em comum — isso não é acaso. Isso é coordenação.',
+        evidence: [
+          {
+            title: 'Evidência 1: A Desproporção',
+            detail: 'Os gastos de gabinete (CEAP) somam R$ 2,8M. As emendas somam R$ 406M. Uma diferença de 146 vezes. Se houvesse desvio no CEAP, seria trocar R$ 100 pelo risco de perder R$ 14.600. Os números não mentem: o dinheiro está nas emendas.',
+          },
+          {
+            title: 'Evidência 2: O Banco',
+            detail: 'Elmar Nascimento: 43,5% das emendas via Banco do Brasil (R$ 85,7M). Félix Mendonça Jr: 37,8% via Banco do Brasil (R$ 79,1M). Dois deputados, mesma região, mesmo padrão, mesmo banco. Juntos, R$ 164 milhões passaram por este único intermediário.',
+          },
+          {
+            title: 'Evidência 3: A Família',
+            detail: 'Campo Formoso recebeu R$ 23,5 milhões em emendas de Elmar Nascimento. O prefeito? Elmo Nascimento — irmão do deputado. Na Fase 5 da operação, a PF foi à casa de Francisquinho Nascimento, primo do deputado e ex-secretário/vereador. Durante a busca, R$ 220 mil foram jogados pela janela. Dinheiro inocente não precisa de janelas.',
+          },
+          {
+            title: 'Evidência 4: A Rede',
+            detail: '55 entidades receberam emendas de AMBOS os deputados. Total: R$ 232 milhões. Esses não são municípios aleatórios — são nós de uma mesma rede. A pergunta não é se existe coordenação, mas como ela funciona.',
+          },
+          {
+            title: 'Evidência 5: O Mecanismo',
+            detail: '25-30% das emendas são Transferências Especiais — as "Emendas PIX" (Elmar: 24,2%, Félix: 29%). Dinheiro que vai direto para a conta, sem convênio, sem projeto, sem prestação de contas ao governo federal. Por que um quarto dos recursos usa justamente o mecanismo com menos controle?',
+          },
+        ],
+      },
+      defesa: {
+        title: 'A Tese da Defesa',
+        centralArgument: 'Meritíssimo, o que a acusação apresenta como "provas" são, na verdade, padrões normais da atividade parlamentar pintados com cores suspeitas. Deputados federais representam suas regiões — direcionar emendas para suas bases eleitorais não é crime, é trabalho. O que vemos aqui é criminalização da política.',
+        counterpoints: [
+          {
+            allegation: 'Sobre a concentração no Banco do Brasil',
+            alternative: 'O Banco do Brasil é o banco oficial do governo federal para transferências. É o intermediário natural para emendas parlamentares. Pergunte a qualquer especialista em finanças públicas: usar o BB para repassar recursos federais é o procedimento padrão, não a exceção.',
+          },
+          {
+            allegation: 'Sobre Campo Formoso e a família',
+            alternative: 'Irmãos nascem da mesma família. Deputados representam suas regiões. Elmar Nascimento foi eleito para representar a Bahia, e Campo Formoso é um município baiano com 70 mil habitantes. Que o prefeito seja parente não torna as emendas ilegais — torna humano.',
+          },
+          {
+            allegation: 'Sobre os beneficiários compartilhados',
+            alternative: 'Dois deputados baianos direcionam recursos para a Bahia. Isso é crime ou é óbvio? Os 55 beneficiários compartilhados são municípios e entidades da mesma região. A sobreposição geográfica é consequência natural, não evidência de conspiração.',
+          },
+          {
+            allegation: 'Sobre as Emendas PIX',
+            alternative: 'As Transferências Especiais foram criadas pela Emenda Constitucional 105/2019, aprovada pelo Congresso Nacional e sancionada pelo Presidente. Usar um instrumento legal criado pelo próprio Estado não é fraude — é exercer uma prerrogativa constitucional.',
+          },
+        ],
+      },
+      openQuestions: [
+        'Qual a real conexão entre os beneficiários de emendas e as empresas do "Rei do Lixo"?',
+        'O que exatamente acontece com o dinheiro depois que chega ao Banco do Brasil?',
+        'Os 55 beneficiários compartilhados têm contratos com empresas investigadas?',
+        'Como uma empresa em recuperação judicial (Bakof Plásticos) recebeu R$ 2,9M em recursos públicos?',
+        'Qual o percentual de concentração BB para outros deputados baianos? O padrão é incomum ou normal?',
+      ],
+    },
+    methodology: {
+      approach: 'Esta análise cruza duas bases de dados públicas: CEAP (gastos de gabinete, 2023-2025) e Emendas Parlamentares (transferências, 2014-2025). O objetivo não é provar fraude — isso cabe à Justiça — mas identificar padrões que merecem atenção e explicar como profissionais de dados analisam informações públicas.',
+      thresholds: [
+        'HHI (Herfindahl-Hirschman Index): Mede concentração. Imagine dividir R$ 100 entre fornecedores. Se for para um só, HHI = 10.000 (monopólio). Se for igual para 100, HHI = 100 (disperso). Acima de 2.500 é considerado alta concentração.',
+        'Lei de Benford: Em dados naturais, o dígito 1 aparece primeiro ~30% das vezes, enquanto 9 aparece apenas ~5%. Números fabricados frequentemente não seguem esse padrão. Um chi-quadrado alto indica desvio dessa distribuição natural.',
+        'Concentração BB > 25%: Quando mais de 25% das emendas de um deputado passam por um único intermediário (neste caso, Banco do Brasil), isso representa concentração significativa que merece explicação.',
+        'Empresa em recuperação judicial: Entidade com dificuldades financeiras sérias recebendo recursos públicos é um sinal de alerta (red flag) que auditores investigam.',
+        'Escala emendas/CEAP > 100x: Normal para deputados ativos. Mostra que análise de fraude focada só em CEAP pode perder o quadro completo.',
+      ],
+      limitations: [
+        'Dados públicos não mostram kickbacks, propinas ou pagamentos informais — a "parte escura" do esquema',
+        'Não temos acesso à estrutura societária das empresas (quem são os donos reais, possíveis laranjas)',
+        'Matching de nomes entre bases tem ~80% de precisão — alguns beneficiários podem ter sido identificados incorretamente',
+        'Estatísticas não provam fraude — apenas mostram padrões que merecem investigação. A prova cabe à Justiça.',
+        'A investigação está em andamento — não sabemos o desfecho. Todos são inocentes até prova em contrário.',
+        'A PF tem acesso a informações que não são públicas (interceptações, depoimentos, documentos sigilosos)',
+      ],
+    },
+    relatedSlugs: [],
+    enrichedData: {
+      externalDataUrl: '/data/spotlights/operacao-overclean.json',
+      periodLabel: 'CEAP: 2023-2025 | Emendas: 2014-2025',
+      periodTotal: 406092283,
+    },
+  },
+
   'eduardo-bolsonaro-debate': {
     slug: 'eduardo-bolsonaro-debate',
     title: 'Eduardo Bolsonaro',
@@ -90,6 +207,7 @@ export const SPOTLIGHT_CONTENT: Record<string, SpotlightContent> = {
     icon: '⚖️',
     category: 'debate',
     dataAvailable: true,
+    addedDate: '2026-01',
     deputyId: 245,
     externalContext: {
       title: 'O Contexto',
@@ -163,17 +281,21 @@ export const SPOTLIGHT_CONTENT: Record<string, SpotlightContent> = {
       ],
     },
     methodology: {
-      approach: 'Verificação de reportagem via dados públicos do Portal da Câmara. Análise estatística incluiu Lei de Benford, Índice HHI e análise temporal. Confrontamos duas interpretações dos mesmos dados.',
+      approach: 'Esta análise partiu de uma reportagem do Metrópoles (11/01/2026) e foi verificada nos dados públicos do Portal de Dados Abertos da Câmara. Baixamos todas as transações CEAP do deputado Eduardo Bolsonaro (ID 245) no período 2023-2025, totalizando 836 transações e R$ 837.765,76 em gastos. Aplicamos três técnicas de análise: (1) Lei de Benford para detectar anomalias na distribuição de valores, (2) Índice HHI para medir concentração de fornecedores, e (3) análise temporal para verificar a consistência geográfica das transações.',
       thresholds: [
-        'Benford p < 0,05 indica desvio significativo',
-        'HHI > 1500 indica concentração moderada',
-        'Concentração > 20% em fornecedor único merece atenção',
+        'Lei de Benford: Em conjuntos de dados naturais (preços, populações, contas), o dígito 1 aparece primeiro ~30% das vezes, enquanto o 9 aparece apenas ~5%. Usamos o teste chi-quadrado para medir o desvio: valores acima de 15,51 (p<0,05) indicam desvio significativo. Eduardo apresentou chi² = 84,43 (p<0,0001), com o dígito 8 aparecendo em 11,3% vs 5,1% esperado.',
+        'HHI (Herfindahl-Hirschman Index): Mede concentração de fornecedores. Varia de 0 (totalmente disperso) a 10.000 (monopólio). Exemplo: se você divide R$ 100 igualmente entre 10 fornecedores, HHI = 1.000. Se vai tudo para 1, HHI = 10.000. Eduardo tem HHI = 1.113, classificado como BAIXO (<1.500).',
+        'Concentração em fornecedor único > 20%: Quando mais de 20% dos gastos vão para um único fornecedor, isso indica dependência que merece explicação. A Novacar recebeu R$ 169.333 (20,2% do total) em 26 transações regulares.',
+        'Consistência geográfica: Verificamos se as datas/locais das transações são coerentes com a localização conhecida do deputado. Pedágios em SP em 08/03/2025 indicam uso físico do veículo, mas não identificam o motorista.',
+        'Contratos de longa duração: Pagamentos mensais fixos (R$ 5.000-8.000) para o mesmo fornecedor podem indicar contrato regular, o que é legítimo, ou podem mascarar valores fixados artificialmente.',
       ],
       limitations: [
-        'Dados não provam quem usou o veículo',
-        'Não temos acesso ao contrato com Novacar',
-        'Falta contexto comparativo com outros deputados',
-        'Ausência nos EUA baseada em reportagens, não em registro oficial',
+        'Dados públicos não identificam quem utilizou o veículo — o deputado, um funcionário do gabinete, ou terceiro. A CEAP permite gastos de equipe.',
+        'Não temos acesso ao contrato firmado com a Novacar: prazo, condições, veículo específico, quilometragem, ou justificativa de uso.',
+        'A ausência do deputado nos EUA é baseada em reportagens jornalísticas, não em registro oficial de embarque/desembarque.',
+        'Falta contexto comparativo: não sabemos quantos deputados têm desvio Benford similar ou contratos de longa duração com locadoras.',
+        'O desvio Benford pode ter explicação legítima: contratos com valores fixos naturalmente concentram em certos dígitos (5.000, 8.000).',
+        'A cassação do mandato por absenteísmo (Set/2025) não tem relação direta comprovada com os gastos analisados.',
       ],
     },
     relatedSlugs: [], // Other cases hidden for now

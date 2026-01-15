@@ -10,6 +10,9 @@ interface FeedbackModalProps {
   onClose: () => void;
 }
 
+// Newsletter subscription is included in the Formspree submission
+// The Formspree integration on the backend can filter subscribed users
+
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoonnap';
 
 export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
@@ -17,6 +20,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const [email, setEmail] = useState('');
   const [feedbackType, setFeedbackType] = useState<FeedbackType>('suggestion');
   const [message, setMessage] = useState('');
+  const [wantsUpdates, setWantsUpdates] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -49,6 +53,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           setEmail('');
           setFeedbackType('suggestion');
           setMessage('');
+          setWantsUpdates(false);
           setStatus('idle');
         }, 300);
       }, 3000);
@@ -72,6 +77,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           email,
           type: feedbackType,
           message,
+          wants_updates: wantsUpdates,
           page_url: window.location.href,
           page_path: location.pathname,
           submitted_at: new Date().toISOString(),
@@ -213,6 +219,21 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                 className="w-full px-3 py-2 bg-bg-secondary border border-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-teal focus:border-transparent transition-all resize-none"
                 disabled={status === 'submitting'}
               />
+            </div>
+
+            {/* Newsletter subscription */}
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="feedback-updates"
+                checked={wantsUpdates}
+                onChange={(e) => setWantsUpdates(e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded border-border bg-bg-secondary text-accent-teal focus:ring-accent-teal focus:ring-offset-0"
+                disabled={status === 'submitting'}
+              />
+              <label htmlFor="feedback-updates" className="text-sm text-text-secondary cursor-pointer">
+                Quero receber atualizacoes sobre novas analises e recursos do dashboard
+              </label>
             </div>
 
             {/* Error message */}

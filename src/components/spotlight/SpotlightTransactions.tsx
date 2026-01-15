@@ -45,7 +45,7 @@ export function SpotlightTransactions({
           <p className="text-xs text-text-muted mt-1">{periodLabel}</p>
         </div>
         <div className="text-right">
-          <p className="text-lg font-bold text-text-primary">{formatReais(periodTotal)}</p>
+          <p className="text-lg font-bold text-text-primary">{formatReais(periodTotal, { noCents: true })}</p>
           <p className="text-xs text-text-muted">Total do período</p>
         </div>
       </div>
@@ -58,7 +58,7 @@ export function SpotlightTransactions({
               <h4 className="text-sm font-medium text-text-primary">{group.title}</h4>
               {group.total !== undefined && (
                 <span className="text-xs text-text-muted ml-auto">
-                  {formatReais(group.total)}
+                  {formatReais(group.total, { noCents: true })}
                 </span>
               )}
             </div>
@@ -97,15 +97,15 @@ export function SpotlightTransactions({
                       {tx.documentValue !== tx.reimbursedValue ? (
                         <>
                           <p className="text-xs text-text-muted line-through">
-                            {formatReais(tx.documentValue)}
+                            {formatReais(tx.documentValue, { noCents: true })}
                           </p>
                           <p className="text-sm font-medium text-text-primary">
-                            {formatReais(tx.reimbursedValue)}
+                            {formatReais(tx.reimbursedValue, { noCents: true })}
                           </p>
                         </>
                       ) : (
                         <p className="text-sm font-medium text-text-primary">
-                          {formatReais(tx.reimbursedValue)}
+                          {formatReais(tx.reimbursedValue, { noCents: true })}
                         </p>
                       )}
                       {tx.documentUrl && (
